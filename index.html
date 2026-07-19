@@ -1,0 +1,1096 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="https://i.ibb.co.com/Z5b2Kyb/32.jpg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HoodLusht NFT Whitelist</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=Press+Start+2P&display=swap" rel="stylesheet" />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      :root {
+        --lime: #ccff00;
+        --lime-deep: #9fd000;
+        --white: #ffffff;
+        --soft-gray: #eeeef0;
+        --gray: #c8c8c0;
+        --dark-gray: #5a5a66;
+        --black: #0e0e14;
+        --lavender: #c9b8ff;
+        --soft-purple: #8a6fd6;
+        --very-light-blue: #cfe6ff;
+        --w95-silver: #c6c6c6;
+        --w95-silver-light: #dfdfdf;
+        --w95-silver-dark: #828282;
+        --w95-shadow: #0a0a0a;
+        --tb-1: #14142b;
+        --tb-2: #2a2350;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        font-family: "Pixelify Sans", ui-sans-serif, system-ui, sans-serif;
+        color: var(--black);
+        background: #f1f2ec;
+        overflow-x: hidden;
+        min-height: 100vh;
+        position: relative;
+        -webkit-font-smoothing: antialiased;
+        cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20' shape-rendering='crispEdges'%3E%3Cpath d='M2 2 L2 14 L5 11 L7 15 L9 14 L7 10 L12 10 Z' fill='white' stroke='black' stroke-width='1'/%3E%3C/svg%3E") 2 2, auto;
+      }
+      button,
+      a,
+      [role="button"] {
+        cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20' shape-rendering='crispEdges'%3E%3Cpath d='M2 2 L2 14 L5 11 L7 15 L9 14 L7 10 L12 10 Z' fill='white' stroke='black' stroke-width='1'/%3E%3C/svg%3E") 2 2, pointer;
+      }
+      img {
+        max-width: 100%;
+        display: block;
+      }
+      .pixelated {
+        image-rendering: pixelated;
+        image-rendering: -moz-crisp-edges;
+        image-rendering: crisp-edges;
+      }
+      .hidden {
+        display: none !important;
+      }
+      .font-arcade {
+        font-family: "Press Start 2P", "Pixelify Sans", monospace;
+      }
+      #bg {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        overflow: hidden;
+        pointer-events: none;
+      }
+      .bg-base {
+        position: absolute;
+        inset: 0;
+        background-color: #f1f2ec;
+      }
+      .bg-checker {
+        position: absolute;
+        inset: 0;
+        opacity: 0.05;
+        background-image: repeating-conic-gradient(var(--lime) 0% 25%, transparent 0% 50%);
+        background-size: 64px 64px;
+      }
+      .bg-block {
+        position: absolute;
+        border: 2px solid rgba(14, 14, 20, 0.04);
+      }
+      .bg-block.b1 {
+        width: 240px;
+        height: 240px;
+        top: 8%;
+        left: -60px;
+        background: rgba(201, 184, 255, 0.22);
+        box-shadow: 0 0 60px 10px rgba(201, 184, 255, 0.25);
+      }
+      .bg-block.b2 {
+        width: 180px;
+        height: 180px;
+        top: 60%;
+        left: 6%;
+        background: rgba(207, 230, 255, 0.3);
+        box-shadow: 0 0 50px 6px rgba(207, 230, 255, 0.3);
+      }
+      .bg-block.b3 {
+        width: 300px;
+        height: 300px;
+        top: 70%;
+        right: -80px;
+        background: rgba(204, 255, 0, 0.12);
+        box-shadow: 0 0 70px 8px rgba(204, 255, 0, 0.18);
+      }
+      .bg-block.b4 {
+        width: 140px;
+        height: 140px;
+        top: 14%;
+        right: 10%;
+        background: rgba(138, 111, 214, 0.16);
+      }
+      .bg-block.b5 {
+        width: 90px;
+        height: 90px;
+        top: 40%;
+        left: 44%;
+        background: rgba(238, 238, 240, 0.6);
+      }
+      .float-pix {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        opacity: 0.5;
+        animation: drift 14s ease-in-out infinite;
+      }
+      .float-pix.f1 { top: 22%; left: 18%; background: var(--lime); }
+      .float-pix.f2 { top: 68%; left: 30%; background: var(--lavender); width: 8px; height: 8px; animation-delay: 2s; }
+      .float-pix.f3 { top: 30%; right: 22%; background: var(--soft-purple); width: 6px; height: 6px; animation-delay: 4s; }
+      .float-pix.f4 { top: 80%; right: 30%; background: var(--lime-deep); width: 12px; height: 12px; animation-delay: 1s; }
+      .float-pix.f5 { top: 12%; left: 60%; background: var(--very-light-blue); width: 8px; height: 8px; animation-delay: 3s; }
+      .sparkle {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: var(--lime);
+        box-shadow: 0 0 6px rgba(204, 255, 0, 0.8);
+        animation: twinkle 2.6s steps(1) infinite;
+      }
+      .sparkle.s1 { top: 18%; left: 40%; animation-delay: 0s; }
+      .sparkle.s2 { top: 55%; left: 70%; animation-delay: 0.8s; }
+      .sparkle.s3 { top: 75%; left: 14%; animation-delay: 1.6s; }
+      .sparkle.s4 { top: 35%; right: 32%; animation-delay: 1.2s; }
+      .sparkle.s5 { top: 88%; left: 52%; animation-delay: 2.1s; }
+      .sparkle.s6 { top: 8%; right: 16%; animation-delay: 0.4s; }
+      .bg-glow {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 420px;
+        height: 420px;
+        transform: translate(-50%, -50%);
+        background: radial-gradient(circle, rgba(204, 255, 0, 0.08) 0%, transparent 70%);
+      }
+      @keyframes drift {
+        0%, 100% { transform: translate(0, 0); }
+        50% { transform: translate(12px, -18px); }
+      }
+      @keyframes twinkle {
+        0%, 40% { opacity: 0; }
+        50% { opacity: 1; }
+        60%, 100% { opacity: 0; }
+      }
+      #app {
+        position: relative;
+        z-index: 2;
+        min-height: 100vh;
+        padding: 24px 16px 70px;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+      }
+      .view {
+        width: 100%;
+        max-width: 620px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        animation: winOpen 0.28s ease-out;
+      }
+      .view.center {
+        align-items: center;
+        justify-content: center;
+        min-height: calc(100vh - 94px);
+      }
+      @keyframes winOpen {
+        from { opacity: 0; transform: translateY(8px) scale(0.985); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
+      }
+      .window {
+        background: var(--w95-silver);
+        box-shadow: inset -1px -1px var(--w95-shadow), inset 1px 1px var(--white), inset -2px -2px var(--w95-silver-dark), inset 2px 2px var(--w95-silver-light), 0 6px 0 -2px rgba(14, 14, 20, 0.18), 0 14px 30px -8px rgba(14, 14, 20, 0.25);
+        padding: 3px;
+        width: 100%;
+      }
+      .title-bar {
+        background: linear-gradient(90deg, var(--tb-1), var(--tb-2));
+        color: var(--white);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 5px 6px;
+        font-weight: 700;
+        font-size: 13px;
+        letter-spacing: 0.3px;
+        position: relative;
+      }
+      .title-bar::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 2px;
+        background: var(--lime);
+        opacity: 0.85;
+      }
+      .title-bar.inactive {
+        background: var(--w95-silver-dark);
+        color: var(--w95-silver-light);
+      }
+      .title-bar.inactive::after { background: var(--w95-silver-dark); }
+      .tb-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .tb-title {
+        flex: 1;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .tb-controls { display: flex; gap: 3px; flex-shrink: 0; }
+      .ctrl-btn {
+        width: 22px;
+        height: 22px;
+        background: var(--w95-silver);
+        border: none;
+        box-shadow: inset -1px -1px var(--w95-shadow), inset 1px 1px var(--white), inset -2px -2px var(--w95-silver-dark), inset 2px 2px var(--w95-silver-light);
+        font-weight: 700;
+        font-size: 12px;
+        color: var(--black);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1;
+      }
+      .ctrl-btn:active {
+        box-shadow: inset 1px 1px var(--w95-shadow), inset -1px -1px var(--white), inset 2px 2px var(--w95-silver-dark), inset -2px -2px var(--w95-silver-light);
+      }
+      .window-body { padding: 18px; }
+      .btn {
+        background: var(--w95-silver);
+        color: var(--black);
+        border: none;
+        font-family: "Pixelify Sans", sans-serif;
+        font-weight: 600;
+        font-size: 14px;
+        padding: 7px 16px;
+        min-width: 92px;
+        box-shadow: inset -1px -1px var(--w95-shadow), inset 1px 1px var(--white), inset -2px -2px var(--w95-silver-dark), inset 2px 2px var(--w95-silver-light);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        transition: filter 0.08s ease;
+        line-height: 1.1;
+      }
+      .btn:hover { filter: brightness(1.06); }
+      .btn:active:not(:disabled) {
+        box-shadow: inset 1px 1px var(--w95-shadow), inset -1px -1px var(--white), inset 2px 2px var(--w95-silver-dark), inset -2px -2px var(--w95-silver-light);
+        padding: 8px 15px 6px 17px;
+      }
+      .btn:disabled {
+        color: var(--w95-silver-dark);
+        text-shadow: 1px 1px var(--white);
+        box-shadow: inset -1px -1px var(--w95-silver-dark), inset 1px 1px var(--white), inset -2px -2px var(--w95-silver-dark), inset 2px 2px var(--w95-silver-light);
+        cursor: default;
+      }
+      .btn:focus-visible { outline: 1px dotted var(--black); outline-offset: -4px; }
+      .btn-primary {
+        background: var(--lime);
+        color: var(--black);
+        box-shadow: inset -1px -1px var(--w95-shadow), inset 1px 1px var(--white), inset -2px -2px var(--lime-deep), inset 2px 2px #e6ff7a;
+        font-weight: 700;
+        min-width: 180px;
+        padding: 10px 22px;
+        font-size: 15px;
+      }
+      .btn-primary:hover {
+        filter: brightness(1.05);
+        box-shadow: inset -1px -1px var(--w95-shadow), inset 1px 1px var(--white), inset -2px -2px var(--lime-deep), inset 2px 2px #e6ff7a, 0 0 16px 2px rgba(204, 255, 0, 0.5);
+      }
+      .btn-primary:active:not(:disabled) {
+        box-shadow: inset 1px 1px var(--w95-shadow), inset -1px -1px var(--white), inset 2px 2px var(--lime-deep), inset -2px -2px #e6ff7a;
+        padding: 11px 21px 9px 23px;
+      }
+      .btn-accent {
+        background: var(--lavender);
+        box-shadow: inset -1px -1px var(--w95-shadow), inset 1px 1px var(--white), inset -2px -2px var(--soft-purple), inset 2px 2px #ece4ff;
+      }
+      .input {
+        background: var(--white);
+        color: var(--black);
+        border: none;
+        font-family: "Pixelify Sans", sans-serif;
+        font-size: 14px;
+        padding: 6px 8px;
+        width: 100%;
+        box-shadow: inset 1px 1px var(--w95-silver-dark), inset -1px -1px var(--white), inset 2px 2px var(--w95-shadow), inset -2px -2px var(--w95-silver-light);
+        outline: none;
+      }
+      .input::placeholder { color: var(--w95-silver-dark); }
+      .input:focus { outline: 1px dotted var(--black); outline-offset: -3px; }
+      label.field-label {
+        display: block;
+        font-size: 12px;
+        font-weight: 600;
+        margin-bottom: 5px;
+        color: var(--dark-gray);
+      }
+      .sunken {
+        background: var(--white);
+        box-shadow: inset 1px 1px var(--w95-silver-dark), inset -1px -1px var(--white), inset 2px 2px var(--w95-shadow), inset -2px -2px var(--w95-silver-light);
+        padding: 12px;
+      }
+      .home-body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 14px;
+        padding: 26px 22px;
+      }
+      .logo-frame {
+        padding: 6px;
+        box-shadow: inset 1px 1px var(--w95-silver-dark), inset -1px -1px var(--white), inset 2px 2px var(--w95-shadow), inset -2px -2px var(--w95-silver-light);
+        background: var(--white);
+      }
+      .logo { width: 132px; height: 132px; object-fit: cover; }
+      .brand {
+        font-family: "Press Start 2P", "Pixelify Sans", monospace;
+        font-size: clamp(20px, 5vw, 30px);
+        color: var(--black);
+        letter-spacing: 1px;
+        line-height: 1.1;
+      }
+      .brand .accent { color: var(--soft-purple); }
+      .supply-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--black);
+        color: var(--lime);
+        font-weight: 700;
+        font-size: 12px;
+        padding: 6px 14px;
+        letter-spacing: 1px;
+        box-shadow: inset -1px -1px #000, inset 1px 1px #2a2a3a, inset -2px -2px #000, inset 2px 2px #3a3a4e;
+      }
+      .supply-badge .dot {
+        width: 8px;
+        height: 8px;
+        background: var(--lime);
+        box-shadow: 0 0 6px var(--lime);
+        animation: blink 1s steps(1) infinite;
+      }
+      @keyframes blink {
+        0%, 50% { opacity: 1; }
+        50.01%, 100% { opacity: 0.2; }
+      }
+      .desc { font-size: 14px; line-height: 1.5; color: var(--dark-gray); max-width: 380px; }
+      .hint { font-size: 11px; color: var(--w95-silver-dark); text-shadow: 1px 1px var(--white); }
+      .hint-window { max-width: 260px; align-self: flex-end; font-size: 12px; }
+      .hint-window .window-body { padding: 10px 12px; }
+      .tasks-body { padding: 16px; display: flex; flex-direction: column; gap: 14px; }
+      .progress { display: flex; align-items: center; gap: 4px; overflow-x: auto; padding-bottom: 2px; }
+      .progress-node { display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 58px; flex-shrink: 0; }
+      .pn-box {
+        width: 26px; height: 26px;
+        display: flex; align-items: center; justify-content: center;
+        background: var(--w95-silver);
+        box-shadow: inset -1px -1px var(--w95-shadow), inset 1px 1px var(--white), inset -2px -2px var(--w95-silver-dark), inset 2px 2px var(--w95-silver-light);
+        font-weight: 700; font-size: 12px; color: var(--black);
+      }
+      .pn-box.done {
+        background: var(--lime);
+        box-shadow: inset -1px -1px var(--w95-shadow), inset 1px 1px var(--white), inset -2px -2px var(--lime-deep), inset 2px 2px #e6ff7a;
+      }
+      .pn-box.active {
+        background: #ffe85c;
+        box-shadow: inset -1px -1px var(--w95-shadow), inset 1px 1px var(--white), inset -2px -2px #c9a800, inset 2px 2px #fff3a8, 0 0 0 2px rgba(255, 232, 92, 0.4);
+      }
+      .pn-box.locked { background: var(--w95-silver-dark); color: var(--w95-silver-light); }
+      .pn-label { font-size: 10px; color: var(--dark-gray); text-align: center; line-height: 1.1; }
+      .pn-label.locked { color: var(--w95-silver-dark); text-shadow: 1px 1px var(--white); }
+      .pn-connector { flex: 1; min-width: 10px; height: 4px; background: var(--w95-silver-dark); margin-top: -22px; }
+      .pn-connector.done { background: var(--lime); }
+      .progress-meta { display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: var(--dark-gray); padding: 0 2px; }
+      .pbar {
+        height: 16px;
+        box-shadow: inset 1px 1px var(--w95-silver-dark), inset -1px -1px var(--white), inset 2px 2px var(--w95-shadow), inset -2px -2px var(--w95-silver-light);
+        padding: 2px;
+      }
+      .pbar-fill {
+        height: 100%;
+        background-image: repeating-linear-gradient(90deg, var(--lime) 0 7px, var(--lime-deep) 7px 9px);
+        width: 0%;
+        transition: width 0.35s ease;
+      }
+      .step { position: relative; transition: opacity 0.2s ease; }
+      .step.locked .step-body { position: relative; }
+      .step.locked .step-body::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: repeating-linear-gradient(45deg, rgba(130,130,130,0.25) 0, rgba(130,130,130,0.25) 1px, transparent 1px, transparent 5px);
+      }
+      .step.locked .step-controls { pointer-events: none; filter: grayscale(1); opacity: 0.55; }
+      .step.done .step-controls { display: none; }
+      .step.done .step-done-summary { display: flex; }
+      .step-done-summary {
+        display: none;
+        align-items: center;
+        gap: 10px;
+        background: var(--white);
+        box-shadow: inset 1px 1px var(--w95-silver-dark), inset -1px -1px var(--white), inset 2px 2px var(--w95-shadow), inset -2px -2px var(--w95-silver-light);
+        padding: 10px 12px;
+        font-size: 13px;
+      }
+      .step-done-summary .chk {
+        width: 20px; height: 20px;
+        background: var(--lime);
+        display: inline-flex; align-items: center; justify-content: center;
+        flex-shrink: 0;
+        box-shadow: inset -1px -1px var(--w95-shadow), inset 1px 1px var(--white), inset -2px -2px var(--lime-deep), inset 2px 2px #e6ff7a;
+      }
+      .step-msg { font-size: 13px; line-height: 1.5; margin-bottom: 12px; color: var(--black); }
+      .step-controls { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
+      .step-controls .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; width: 100%; }
+      .step-controls .row.right { justify-content: flex-end; }
+      .step-controls .field { display: flex; flex-direction: column; gap: 5px; width: 100%; }
+      .status-badge { font-size: 10px; font-weight: 700; padding: 3px 8px; border: 1px solid var(--black); line-height: 1; flex-shrink: 0; }
+      .status-badge.done { background: var(--lime); color: var(--black); }
+      .status-badge.active { background: #ffe85c; color: var(--black); }
+      .status-badge.locked { background: var(--w95-silver-dark); color: var(--white); }
+      .step-tb { font-size: 12px; }
+      .tasks-footer {
+        display: flex; align-items: center; justify-content: space-between;
+        gap: 10px; font-size: 11px; color: var(--w95-silver-dark);
+        text-shadow: 1px 1px var(--white);
+      }
+      .success-body { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 14px; padding: 24px; }
+      .success-icon {
+        width: 64px; height: 64px; background: var(--lime);
+        display: flex; align-items: center; justify-content: center;
+        box-shadow: inset -1px -1px var(--w95-shadow), inset 1px 1px var(--white), inset -2px -2px var(--lime-deep), inset 2px 2px #e6ff7a, 0 0 24px 2px rgba(204, 255, 0, 0.4);
+      }
+      .success-title { font-family: "Press Start 2P", "Pixelify Sans", monospace; font-size: clamp(13px, 3vw, 17px); line-height: 1.3; }
+      .success-msg { font-size: 13px; line-height: 1.6; text-align: left; color: var(--black); }
+      .taskbar {
+        position: fixed; bottom: 0; left: 0; right: 0; height: 32px;
+        background: var(--w95-silver);
+        box-shadow: inset -1px -1px var(--w95-shadow), inset 1px 1px var(--white), inset -2px 0 var(--w95-silver-dark), inset 2px 0 var(--w95-silver-light);
+        display: flex; align-items: center; gap: 6px; padding: 3px; z-index: 40;
+      }
+      .start-btn {
+        display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px;
+        background: var(--w95-silver); border: none; font-weight: 700; font-size: 13px;
+        box-shadow: inset -1px -1px var(--w95-shadow), inset 1px 1px var(--white), inset -2px -2px var(--w95-silver-dark), inset 2px 2px var(--w95-silver-light);
+      }
+      .start-btn:active {
+        box-shadow: inset 1px 1px var(--w95-shadow), inset -1px -1px var(--white), inset 2px 2px var(--w95-silver-dark), inset -2px -2px var(--w95-silver-light);
+      }
+      .win-logo { display: inline-grid; grid-template-columns: 1fr 1fr; gap: 1px; width: 14px; height: 14px; }
+      .win-logo span { display: block; }
+      .win-logo span:nth-child(1) { background: #ff4d4d; }
+      .win-logo span:nth-child(2) { background: #4dd960; }
+      .win-logo span:nth-child(3) { background: #4d8dff; }
+      .win-logo span:nth-child(4) { background: #ffd84d; }
+      .tb-spacer { flex: 1; }
+      .tb-app {
+        display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px; font-size: 12px;
+        box-shadow: inset 1px 1px var(--w95-shadow), inset -1px -1px var(--white), inset 2px 2px var(--w95-silver-dark), inset -2px -2px var(--w95-silver-light);
+        max-width: 180px;
+      }
+      .tb-app .swatch { width: 12px; height: 12px; background: var(--tb-1); flex-shrink: 0; }
+      .tb-app span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+      .tb-clock {
+        display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px; font-size: 12px;
+        box-shadow: inset 1px 1px var(--w95-silver-dark), inset -1px -1px var(--white), inset 2px 2px var(--w95-shadow), inset -2px -2px var(--w95-silver-light);
+        background: var(--white);
+      }
+      .tb-clock .ldot { width: 10px; height: 10px; background: var(--lime); box-shadow: 0 0 5px var(--lime); }
+      #dialog-overlay {
+        position: fixed; inset: 0; z-index: 100; display: none;
+        align-items: center; justify-content: center; padding: 16px;
+        background: rgba(14, 14, 20, 0.25);
+      }
+      #dialog-overlay.active { display: flex; }
+      .dialog-window { max-width: 360px; width: 100%; animation: winOpen 0.2s ease-out; }
+      .dialog-body { padding: 18px; display: flex; gap: 14px; align-items: flex-start; }
+      .dialog-icon { width: 40px; height: 40px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+      .dialog-text { font-size: 13px; line-height: 1.5; flex: 1; }
+      .dialog-text b { display: block; margin-bottom: 4px; }
+      .dialog-footer { padding: 0 18px 18px; display: flex; justify-content: center; }
+      .loadbar-wrap { padding: 0 18px 18px; }
+      .loadbar {
+        height: 18px;
+        box-shadow: inset 1px 1px var(--w95-silver-dark), inset -1px -1px var(--white), inset 2px 2px var(--w95-shadow), inset -2px -2px var(--w95-silver-light);
+        padding: 2px;
+      }
+      .loadbar-fill {
+        height: 100%;
+        background-image: repeating-linear-gradient(90deg, var(--lime) 0 7px, var(--lime-deep) 7px 9px);
+        width: 0%;
+        animation: loadgrow 1.2s linear forwards;
+      }
+      @keyframes loadgrow { from { width: 0%; } to { width: 100%; } }
+      ::-webkit-scrollbar { width: 16px; height: 16px; }
+      ::-webkit-scrollbar-track {
+        background: var(--white);
+        background-image: linear-gradient(45deg, var(--w95-silver-dark) 25%, transparent 25%), linear-gradient(45deg, var(--w95-silver-dark) 75%, transparent 75%);
+        background-size: 2px 2px; background-position: 0 0, 1px 1px;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--w95-silver);
+        box-shadow: inset -1px -1px var(--w95-shadow), inset 1px 1px var(--white), inset -2px -2px var(--w95-silver-dark), inset 2px 2px var(--w95-silver-light);
+      }
+      ::-webkit-scrollbar-button {
+        background: var(--w95-silver);
+        box-shadow: inset -1px -1px var(--w95-shadow), inset 1px 1px var(--white), inset -2px -2px var(--w95-silver-dark), inset 2px 2px var(--w95-silver-light);
+        display: block; height: 16px; width: 16px;
+      }
+      @media (max-width: 560px) {
+        #app { padding: 14px 10px 64px; }
+        .window-body { padding: 14px; }
+        .home-body { padding: 18px 14px; }
+        .logo { width: 108px; height: 108px; }
+        .btn-primary { min-width: 100%; }
+        .hint-window { display: none; }
+        .step-controls .row { flex-direction: column; align-items: stretch; }
+        .step-controls .btn { width: 100%; }
+        .dialog-body { flex-direction: column; align-items: center; text-align: center; }
+      }
+      @media (max-width: 380px) {
+        .progress-node { min-width: 46px; }
+        .pn-label { font-size: 9px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="bg" aria-hidden="true">
+      <div class="bg-base"></div>
+      <div class="bg-checker"></div>
+      <div class="bg-glow"></div>
+      <div class="bg-block b1"></div>
+      <div class="bg-block b2"></div>
+      <div class="bg-block b3"></div>
+      <div class="bg-block b4"></div>
+      <div class="bg-block b5"></div>
+      <div class="float-pix f1"></div>
+      <div class="float-pix f2"></div>
+      <div class="float-pix f3"></div>
+      <div class="float-pix f4"></div>
+      <div class="float-pix f5"></div>
+      <div class="sparkle s1"></div>
+      <div class="sparkle s2"></div>
+      <div class="sparkle s3"></div>
+      <div class="sparkle s4"></div>
+      <div class="sparkle s5"></div>
+      <div class="sparkle s6"></div>
+    </div>
+    <main id="app">
+      <section id="view-home" class="view center">
+        <div class="window" style="max-width: 440px">
+          <div class="title-bar">
+            <span class="tb-icon">
+              <svg width="14" height="14" viewBox="0 0 8 8" shape-rendering="crispEdges">
+                <rect x="2" y="0" width="4" height="2" fill="#8a6fd6" />
+                <rect x="1" y="2" width="6" height="2" fill="#c9b8ff" />
+                <rect x="2" y="4" width="4" height="3" fill="#f0e8ff" />
+                <rect x="3" y="5" width="1" height="1" fill="#0e0e14" />
+                <rect x="4" y="5" width="1" height="1" fill="#0e0e14" />
+                <rect x="3" y="6" width="2" height="1" fill="#ccff00" />
+              </svg>
+            </span>
+            <span class="tb-title">HoodLusht Whitelist.exe</span>
+            <div class="tb-controls">
+              <button class="ctrl-btn" title="Minimize">_</button>
+              <button class="ctrl-btn" title="Maximize">▢</button>
+              <button class="ctrl-btn" title="Close">X</button>
+            </div>
+          </div>
+          <div class="window-body home-body">
+            <div class="logo-frame">
+              <img class="logo pixelated" src="https://i.ibb.co.com/Z5b2Kyb/32.jpg" alt="HoodLush logo" />
+            </div>
+            <h1 class="brand">Hood<span class="accent">Lush</span></h1>
+            <div class="supply-badge">
+              <span class="dot"></span> SUPPLY · 1,000 NFTs
+            </div>
+            <p class="desc">
+              A premium pixel-anime collection of 1,000 handcrafted hooded
+              avatars. Join the whitelist to secure your guaranteed mint spot.
+            </p>
+            <button class="btn btn-primary" onclick="openTasks()">
+              Join Whitelist
+            </button>
+            <p class="hint">Only 1,000 spots available.</p>
+          </div>
+        </div>
+        <div class="window hint-window">
+          <div class="title-bar">
+            <span class="tb-title">System</span>
+            <div class="tb-controls">
+              <button class="ctrl-btn">X</button>
+            </div>
+          </div>
+          <div class="window-body">
+            Welcome. Click <b>Join Whitelist</b> to start the setup.
+          </div>
+        </div>
+      </section>
+      <section id="view-tasks" class="view hidden">
+        <div class="window">
+          <div class="title-bar">
+            <span class="tb-icon">
+              <svg width="12" height="12" viewBox="0 0 8 8" shape-rendering="crispEdges">
+                <rect x="2" y="0" width="4" height="2" fill="#ccff00" />
+                <rect x="1" y="2" width="6" height="4" fill="#fff" />
+                <rect x="2" y="6" width="4" height="1" fill="#0e0e14" />
+              </svg>
+            </span>
+            <span class="tb-title">Whitelist Setup</span>
+            <div class="tb-controls">
+              <button class="ctrl-btn" title="Minimize">_</button>
+              <button class="ctrl-btn" title="Maximize">▢</button>
+              <button class="ctrl-btn" title="Close" onclick="goHome()">X</button>
+            </div>
+          </div>
+          <div class="window-body tasks-body">
+            <div class="progress" id="progress"></div>
+            <div class="progress-meta">
+              <span id="progress-text">Progress: 0/5</span>
+              <span id="progress-state">In progress…</span>
+            </div>
+            <div class="pbar">
+              <div class="pbar-fill" id="pbar-fill"></div>
+            </div>
+            <div class="step" id="step-1" data-step="1">
+              <div class="window step-window">
+                <div class="title-bar step-tb">
+                  <span class="tb-title">Step 1 — Follow HoodLusht on X</span>
+                  <span class="status-badge locked" id="status-1">LOCKED</span>
+                </div>
+                <div class="window-body step-body">
+                  <p class="step-msg">Follow our official X account to begin your whitelist journey.</p>
+                  <div class="step-controls">
+                    <div class="row" id="phase-1a">
+                      <button class="btn" onclick="followX()">↗ Follow on X</button>
+                    </div>
+                    <div class="row hidden" id="phase-1b" style="flex-direction: column; align-items: stretch; gap: 8px">
+                      <div class="field">
+                        <label class="field-label">Enter your X Username</label>
+                        <input class="input" id="xUsername" placeholder="@yourhandle" />
+                      </div>
+                      <div class="row right">
+                        <button class="btn btn-accent" onclick="verifyUsername()">Verify Username</button>
+                      </div>
+                    </div>
+                    <div class="step-done-summary">
+                      <span class="chk">✓</span>
+                      <span id="summary-1">X username verified</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="step" id="step-2" data-step="2">
+              <div class="window step-window">
+                <div class="title-bar step-tb">
+                  <span class="tb-title">Step 2 — Like Our Pinned Post</span>
+                  <span class="status-badge locked" id="status-2">LOCKED</span>
+                </div>
+                <div class="window-body step-body">
+                  <p class="step-msg">Like our latest pinned post on X.</p>
+                  <div class="step-controls">
+                    <div class="row">
+                      <button class="btn" onclick="openPinned(2)">↗ Open Post</button>
+                      <button class="btn" id="btn-done-2" disabled onclick="markDone('liked')">Done</button>
+                    </div>
+                    <div class="step-done-summary">
+                      <span class="chk">✓</span>
+                      <span>Pinned post liked.</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="step" id="step-3" data-step="3">
+              <div class="window step-window">
+                <div class="title-bar step-tb">
+                  <span class="tb-title">Step 3 — Repost Our Pinned Post</span>
+                  <span class="status-badge locked" id="status-3">LOCKED</span>
+                </div>
+                <div class="window-body step-body">
+                  <p class="step-msg">Repost our pinned post.</p>
+                  <div class="step-controls">
+                    <div class="row">
+                      <button class="btn" onclick="openPinned(3)">↗ Open Post</button>
+                      <button class="btn" id="btn-done-3" disabled onclick="markDone('reposted')">Done</button>
+                    </div>
+                    <div class="step-done-summary">
+                      <span class="chk">✓</span>
+                      <span>Pinned post reposted.</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="step" id="step-4" data-step="4">
+              <div class="window step-window">
+                <div class="title-bar step-tb">
+                  <span class="tb-title">Step 4 — Comment on Our Pinned Post</span>
+                  <span class="status-badge locked" id="status-4">LOCKED</span>
+                </div>
+                <div class="window-body step-body">
+                  <p class="step-msg">Leave a genuine comment on our pinned post.</p>
+                  <div class="step-controls">
+                    <div class="row">
+                      <button class="btn" onclick="openPinned(4)">↗ Open Post</button>
+                    </div>
+                    <div class="field">
+                      <label class="field-label">Comment Link</label>
+                      <input class="input" id="commentLink" placeholder="https://x.com/HoodLush/status/..." />
+                    </div>
+                    <div class="row right">
+                      <button class="btn btn-accent" onclick="verifyComment()">Verify Comment</button>
+                    </div>
+                    <div class="step-done-summary">
+                      <span class="chk">✓</span>
+                      <span>Comment link verified.</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="step" id="step-5" data-step="5">
+              <div class="window step-window">
+                <div class="title-bar step-tb">
+                  <span class="tb-title">Step 5 — Submit Wallet</span>
+                  <span class="status-badge locked" id="status-5">LOCKED</span>
+                </div>
+                <div class="window-body step-body">
+                  <p class="step-msg">Enter the wallet you will mint with.</p>
+                  <div class="step-controls">
+                    <div class="field">
+                      <label class="field-label">Wallet Address</label>
+                      <input class="input" id="wallet" placeholder="0x..." />
+                    </div>
+                    <div class="row right">
+                      <button class="btn btn-primary" style="min-width: 140px" onclick="submitWallet()">Submit</button>
+                    </div>
+                    <div class="step-done-summary">
+                      <span class="chk">✓</span>
+                      <span id="summary-5">Wallet submitted.</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tasks-footer">
+              <button class="btn" style="min-width: 90px" onclick="goHome()">Cancel</button>
+              <span>🔒 Steps must be completed in order.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="view-success" class="view center hidden">
+        <div class="window" style="max-width: 440px">
+          <div class="title-bar">
+            <span class="tb-icon">
+              <svg width="12" height="12" viewBox="0 0 8 8" shape-rendering="crispEdges">
+                <rect x="0" y="3" width="2" height="2" fill="#ccff00" />
+                <rect x="2" y="1" width="2" height="4" fill="#ccff00" />
+                <rect x="4" y="3" width="2" height="2" fill="#ccff00" />
+              </svg>
+            </span>
+            <span class="tb-title">Success</span>
+            <div class="tb-controls">
+              <button class="ctrl-btn" title="Close" onclick="goHome()">X</button>
+            </div>
+          </div>
+          <div class="window-body success-body">
+            <div class="success-icon">
+              <svg width="34" height="34" viewBox="0 0 8 8" shape-rendering="crispEdges">
+                <rect x="0" y="3" width="1" height="2" fill="#0e0e14" />
+                <rect x="1" y="5" width="1" height="2" fill="#0e0e14" />
+                <rect x="2" y="6" width="2" height="1" fill="#0e0e14" />
+                <rect x="4" y="2" width="1" height="4" fill="#0e0e14" />
+                <rect x="5" y="1" width="1" height="3" fill="#0e0e14" />
+                <rect x="6" y="0" width="1" height="2" fill="#0e0e14" />
+              </svg>
+            </div>
+            <h2 class="success-title">Whitelist Registration Complete</h2>
+            <div class="sunken" style="width: 100%">
+              <p class="success-msg">
+                <b>Congratulations!</b><br />
+                Your whitelist registration has been successfully submitted.
+                <br /><br />
+                Please continue following HoodLusht on X for whitelist updates,
+                announcements, mint schedule and future project news.
+                <br /><br />
+                We can't wait to welcome you into HoodLusht.
+              </p>
+            </div>
+            <button class="btn btn-primary" onclick="goHome()">Return Home</button>
+            <p class="hint">@HoodLusht · 1,000 NFTs</p>
+          </div>
+        </div>
+      </section>
+    </main>
+    <div class="taskbar">
+      <button class="start-btn">
+        <span class="win-logo">
+          <span></span><span></span><span></span><span></span>
+        </span>
+        Start
+      </button>
+      <div class="tb-spacer"></div>
+      <div class="tb-app">
+        <span class="swatch"></span>
+        <span id="tb-app-label">Whitelist.exe</span>
+      </div>
+      <div class="tb-clock">
+        <span class="ldot"></span>
+        <span id="tb-clock">00:00</span>
+      </div>
+    </div>
+    <div id="dialog-overlay"></div>
+    <script src="config.js"></script>
+    <script>
+      const COLLECTION = {
+        name: "HoodLusht",
+        xHandle: "HoodLush",
+        xUrl: "https://x.com/HoodLusht",
+        pinnedPostUrl: "https://x.com/HoodLusht",
+      };
+      const STEP_LABELS = ["Follow", "Like", "Repost", "Comment", "Wallet"];
+      const state = {
+        xFollowed: false,
+        xUsername: "",
+        xVerified: false,
+        liked: false,
+        reposted: false,
+        commentLink: "",
+        commentVerified: false,
+        wallet: "",
+        walletSubmitted: false,
+      };
+      const doneFns = {
+        1: () => state.xVerified,
+        2: () => state.liked,
+        3: () => state.reposted,
+        4: () => state.commentVerified,
+        5: () => state.walletSubmitted,
+      };
+      function showView(id) {
+        ["view-home", "view-tasks", "view-success"].forEach((v) => {
+          document.getElementById(v).classList.add("hidden");
+        });
+        const el = document.getElementById(id);
+        el.classList.remove("hidden");
+        el.style.animation = "none";
+        void el.offsetWidth;
+        el.style.animation = "";
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+      function setTaskbar(label) {
+        document.getElementById("tb-app-label").textContent = label;
+      }
+      function openTasks() {
+        showView("view-tasks");
+        setTaskbar("Whitelist Tasks");
+        render();
+      }
+      function goHome() {
+        showView("view-home");
+        setTaskbar("Whitelist.exe");
+      }
+      function goSuccess() {
+        showView("view-success");
+        setTaskbar("Success");
+      }
+      function openUrl(url) {
+        window.open(url, "_blank", "noopener,noreferrer");
+      }
+      function statusOf(n) {
+        if (doneFns[n]()) return "done";
+        if (n === 1 || doneFns[n - 1]()) return "active";
+        return "locked";
+      }
+      function completedCount() {
+        let c = 0;
+        for (let i = 1; i <= 5; i++) if (doneFns[i]()) c++;
+        return c;
+      }
+      function render() {
+        const prog = document.getElementById("progress");
+        prog.innerHTML = "";
+        for (let i = 1; i <= 5; i++) {
+          const st = statusOf(i);
+          const node = document.createElement("div");
+          node.className = "progress-node";
+          node.innerHTML =
+            '<div class="pn-box ' + st + '">' +
+            (st === "done" ? "✓" : st === "locked" ? "🔒" : i) +
+            "</div>" +
+            '<div class="pn-label ' + (st === "locked" ? "locked" : "") + '">' +
+            STEP_LABELS[i - 1] + "</div>";
+          prog.appendChild(node);
+          if (i < 5) {
+            const conn = document.createElement("div");
+            conn.className = "pn-connector" + (st === "done" ? " done" : "");
+            prog.appendChild(conn);
+          }
+        }
+        const cc = completedCount();
+        document.getElementById("progress-text").textContent = "Progress: " + cc + "/5";
+        document.getElementById("progress-state").textContent = cc === 5 ? "Complete!" : "In progress…";
+        document.getElementById("pbar-fill").style.width = (cc / 5) * 100 + "%";
+        for (let i = 1; i <= 5; i++) {
+          const stepEl = document.getElementById("step-" + i);
+          const st = statusOf(i);
+          stepEl.classList.remove("locked", "done");
+          if (st === "locked") stepEl.classList.add("locked");
+          if (st === "done") stepEl.classList.add("done");
+          const badge = document.getElementById("status-" + i);
+          badge.className = "status-badge " + st;
+          badge.textContent = st.toUpperCase();
+          const tb = stepEl.querySelector(".step-tb");
+          tb.classList.toggle("inactive", st === "locked");
+          if (i === 1) {
+            document.getElementById("phase-1a").classList.toggle("hidden", state.xFollowed);
+            document.getElementById("phase-1b").classList.toggle("hidden", !state.xFollowed);
+          }
+        }
+        document.getElementById("summary-1").textContent = "X username verified: @" + state.xUsername;
+        if (state.wallet) {
+          const w = state.wallet;
+          document.getElementById("summary-5").textContent =
+            "Wallet submitted: " + w.slice(0, 6) + "…" + w.slice(-4);
+        }
+      }
+      function followX() {
+        openUrl(COLLECTION.xUrl);
+        state.xFollowed = true;
+        render();
+      }
+      function verifyUsername() {
+        const raw = document.getElementById("xUsername").value.trim();
+        const u = raw.replace(/^@/, "");
+        if (u.length < 3) {
+          showAlert("Invalid Username", "Please enter a valid X username (at least 3 characters).");
+          return;
+        }
+        showLoading("Verifying…", "Checking your X username.", () => {
+          state.xUsername = u;
+          state.xVerified = true;
+          render();
+          showAlert("Verified", "Your X username has been confirmed. Step 2 is now unlocked.");
+        });
+      }
+      function openPinned(step) {
+        openUrl(COLLECTION.pinnedPostUrl);
+        if (step === 2) {
+          const btn = document.getElementById("btn-done-2");
+          btn.disabled = false;
+          btn.classList.add("btn-accent");
+        }
+        if (step === 3) {
+          const btn = document.getElementById("btn-done-3");
+          btn.disabled = false;
+          btn.classList.add("btn-accent");
+        }
+      }
+      function markDone(key) {
+        state[key] = true;
+        render();
+      }
+      function verifyComment() {
+        const link = document.getElementById("commentLink").value.trim();
+        if (link.length < 10 || !/(x\.com|twitter\.com)/i.test(link)) {
+          showAlert("Invalid Comment Link", "Please paste a valid link to your X comment.");
+          return;
+        }
+        showLoading("Verifying…", "Checking your comment link.", () => {
+          state.commentLink = link;
+          state.commentVerified = true;
+          render();
+          showAlert("Verified", "Your comment has been confirmed. Step 5 is now unlocked.");
+        });
+      }
+      function submitWallet() {
+        const w = document.getElementById("wallet").value.trim();
+        const isEvm = /^0x[a-fA-F0-9]{40}$/.test(w);
+        const isSolana = /^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(w);
+        if (!isEvm && !isSolana) {
+          showAlert("Invalid Wallet", "Please enter a valid wallet address (EVM 0x… or Solana).");
+          return;
+        }
+        showLoading("Submitting…", "Registering your wallet.", () => {
+          state.wallet = w;
+          state.walletSubmitted = true;
+          
+          const data = new URLSearchParams();
+          data.append("username", state.xUsername);
+          data.append("comment", state.commentLink);
+          data.append("wallet", state.wallet);
+          
+          if(typeof SCRIPT_URL !== 'undefined') {
+            fetch(SCRIPT_URL, {
+              method: 'POST',
+              body: data,
+              mode: 'no-cors'
+            }).then(() => {
+              render();
+              goSuccess();
+            }).catch(() => {
+              render();
+              goSuccess();
+            });
+          } else {
+            render();
+            goSuccess();
+          }
+        });
+      }
+      const overlay = document.getElementById("dialog-overlay");
+      function closeDialog() {
+        overlay.classList.remove("active");
+        overlay.innerHTML = "";
+      }
+      function showAlert(title, message, onOk) {
+        overlay.innerHTML =
+          '<div class="window dialog-window">' +
+          '<div class="title-bar"><span class="tb-title">' + title + '</span><div class="tb-controls"><button class="ctrl-btn" onclick="closeDialog()">X</button></div></div>' +
+          '<div class="dialog-body">' +
+          '<div class="dialog-icon"><svg width="34" height="34" viewBox="0 0 8 8" shape-rendering="crispEdges"><rect x="3" y="0" width="2" height="5" fill="#ccff00"/><rect x="3" y="6" width="2" height="1" fill="#0e0e14"/></svg></div>' +
+          '<div class="dialog-text"><b>' + title + "</b>" + message + "</div></div>" +
+          '<div class="dialog-footer"><button class="btn" id="dlg-ok">OK</button></div>' +
+          "</div>";
+        overlay.classList.add("active");
+        const ok = document.getElementById("dlg-ok");
+        ok.onclick = () => { closeDialog(); if (onOk) onOk(); };
+      }
+      function showLoading(title, message, onDone) {
+        overlay.innerHTML =
+          '<div class="window dialog-window">' +
+          '<div class="title-bar"><span class="tb-title">' + title + '</span><div class="tb-controls"><button class="ctrl-btn" disabled style="opacity:0.5">X</button></div></div>' +
+          '<div class="dialog-body">' +
+          '<div class="dialog-icon"><svg width="30" height="30" viewBox="0 0 8 8" shape-rendering="crispEdges"><rect x="1" y="1" width="2" height="2" fill="#8a6fd6"/><rect x="5" y="1" width="2" height="2" fill="#ccff00"/><rect x="1" y="5" width="2" height="2" fill="#cfe6ff"/><rect x="5" y="5" width="2" height="2" fill="#0e0e14"/></svg></div>' +
+          '<div class="dialog-text"><b>' + title + "</b>" + message + "</div></div>" +
+          '<div class="loadbar-wrap"><div class="loadbar"><div class="loadbar-fill"></div></div></div>' +
+          "</div>";
+        overlay.classList.add("active");
+        setTimeout(() => { closeDialog(); if (onDone) onDone(); }, 1300);
+      }
+      function tickClock() {
+        const d = new Date();
+        const hh = String(d.getHours()).padStart(2, "0");
+        const mm = String(d.getMinutes()).padStart(2, "0");
+        document.getElementById("tb-clock").textContent = hh + ":" + mm;
+      }
+      tickClock();
+      setInterval(tickClock, 20000);
+      render();
+    </script>
+  </body>
+</html>
