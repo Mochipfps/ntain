@@ -8,6 +8,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=Press+Start+2P&display=swap" rel="stylesheet" />
+    
+    <link rel="preload" href="https://i.ibb.co.com/1fNyk1QW/gif.gif" as="image">
+    
     <style>
       *,
       *::before,
@@ -302,7 +305,7 @@
         padding: 10px 22px;
         font-size: 15px;
       }
-      .btn-primary:hover {
+      .btn-primary:hover:not(:disabled) {
         filter: brightness(1.05);
         box-shadow: inset -1px -1px var(--w95-shadow), inset 1px 1px var(--white), inset -2px -2px var(--lime-deep), inset 2px 2px #e6ff7a, 0 0 16px 2px rgba(204, 255, 0, 0.5);
       }
@@ -473,6 +476,7 @@
       }
       .success-title { font-family: "Press Start 2P", "Pixelify Sans", monospace; font-size: clamp(13px, 3vw, 17px); line-height: 1.3; }
       .success-msg { font-size: 13px; line-height: 1.6; text-align: left; color: var(--black); }
+      
       .taskbar {
         position: fixed; bottom: 0; left: 0; right: 0; height: 32px;
         background: var(--w95-silver);
@@ -507,6 +511,32 @@
         background: var(--white);
       }
       .tb-clock .ldot { width: 10px; height: 10px; background: var(--lime); box-shadow: 0 0 5px var(--lime); }
+      
+      .start-menu {
+        position: fixed;
+        bottom: 32px;
+        left: 0;
+        width: 320px;
+        z-index: 50;
+        display: none;
+      }
+      .start-menu.active {
+        display: block;
+      }
+      .start-menu .window-body {
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: white;
+      }
+      .opensea-img {
+        width: 100%;
+        max-height: 250px;
+        object-fit: contain;
+      }
+      
       #dialog-overlay {
         position: fixed; inset: 0; z-index: 100; display: none;
         align-items: center; justify-content: center; padding: 16px;
@@ -775,7 +805,7 @@
                       <input class="input" id="wallet" placeholder="0x..." />
                     </div>
                     <div class="row right">
-                      <button class="btn btn-primary" style="min-width: 140px" onclick="submitWallet()">Submit</button>
+                      <button class="btn btn-primary" id="btn-submit-wallet" style="min-width: 140px" onclick="submitWallet()">Submit</button>
                     </div>
                     <div class="step-done-summary">
                       <span class="chk">✓</span>
@@ -836,8 +866,23 @@
         </div>
       </section>
     </main>
+    
+    <div class="window start-menu" id="start-menu">
+      <div class="title-bar">
+        <span class="tb-title">System</span>
+        <div class="tb-controls">
+          <button class="ctrl-btn" onclick="toggleStartMenu()">_</button>
+          <button class="ctrl-btn" onclick="toggleStartMenu()">X</button>
+        </div>
+      </div>
+      <div class="window-body">
+        <img src="https://i.ibb.co.com/Sjm0nyF/Opage.png" class="opensea-img" alt="OpenSea">
+        <button class="btn btn-primary" style="margin: 10px 0; width: 80%; font-size: 14px;" onclick="openUrl('https://opensea.io/collection/hoodlust/overview')">Open On OpenSea</button>
+      </div>
+    </div>
+    
     <div class="taskbar">
-      <button class="start-btn">
+      <button class="start-btn" onclick="toggleStartMenu()">
         <span class="win-logo">
           <span></span><span></span><span></span><span></span>
         </span>
@@ -920,6 +965,10 @@
         let c = 0;
         for (let i = 1; i <= 5; i++) if (doneFns[i]()) c++;
         return c;
+      }
+      function toggleStartMenu() {
+        const menu = document.getElementById("start-menu");
+        menu.classList.toggle("active");
       }
       function render() {
         const prog = document.getElementById("progress");
@@ -1018,11 +1067,14 @@
         });
       }
       function submitWallet() {
+        const btnSubmit = document.getElementById("btn-submit-wallet");
+        btnSubmit.disabled = true;
         const w = document.getElementById("wallet").value.trim();
         const isEvm = /^0x[a-fA-F0-9]{40}$/.test(w);
         const isSolana = /^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(w);
         if (!isEvm && !isSolana) {
           showAlert("Invalid Wallet", "Please enter a valid wallet address (EVM 0x… or Solana).");
+          btnSubmit.disabled = false;
           return;
         }
         showLoading("Submitting…", "Registering your wallet.", () => {
@@ -1045,10 +1097,13 @@
             }).catch(() => {
               render();
               goSuccess();
+            }).finally(() => {
+              btnSubmit.disabled = false;
             });
           } else {
             render();
             goSuccess();
+            btnSubmit.disabled = false;
           }
         });
       }
