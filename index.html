@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="https://i.ibb.co.com/Z5b2Kyb/32.jpg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>HoodLust NFT Whitelist</title>
+    <title>HoodLust NFT</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=Press+Start+2P&display=swap" rel="stylesheet" />
@@ -630,7 +630,7 @@
                 <rect x="3" y="6" width="2" height="1" fill="#ccff00" />
               </svg>
             </span>
-            <span class="tb-title">HoodLust Whitelist.exe</span>
+            <span class="tb-title">HoodLust.exe</span>
             <div class="tb-controls">
               <button class="ctrl-btn" title="Minimize">_</button>
               <button class="ctrl-btn" title="Maximize">▢</button>
@@ -646,13 +646,13 @@
               <span class="dot"></span> SUPPLY · 1,000 NFTs
             </div>
             <p class="desc">
-              hoodlust is a premium retro pixel collection of 1,000 handcrafted Windows 95 style nfts
-              Join the whitelist to secure your guaranteed mint spot.
+              <b>Whitelist is officially CLOSED!</b><br/><br/>
+              A huge thank you to everyone who joined and supported us! hoodlust is a premium retro pixel collection of 1,000 handcrafted Windows 95 style NFTs. You can now mint your spot directly on OpenSea!
             </p>
-            <button class="btn btn-primary" onclick="openTasks()">
-              Join Whitelist
+            <button class="btn btn-primary" onclick="openUrl('https://opensea.io/collection/hoodlust/overview')">
+              Mint on OpenSea
             </button>
-            <p class="hint">Only 1,000 spots available.</p>
+            <p class="hint">Thank you for your incredible support.</p>
           </div>
         </div>
         <div class="window hint-window">
@@ -663,10 +663,12 @@
             </div>
           </div>
           <div class="window-body">
-            Welcome. Click <b>Join Whitelist</b> to start the setup.
+            Whitelist closed. Click <b>Mint on OpenSea</b> to get your NFT.
           </div>
         </div>
       </section>
+      
+      <!-- Whitelist Tasks (Hidden) -->
       <section id="view-tasks" class="view hidden">
         <div class="window">
           <div class="title-bar">
@@ -822,6 +824,8 @@
           </div>
         </div>
       </section>
+      
+      <!-- Success View (Hidden) -->
       <section id="view-success" class="view center hidden">
         <div class="window" style="max-width: 440px">
           <div class="title-bar">
@@ -891,7 +895,7 @@
       <div class="tb-spacer"></div>
       <div class="tb-app">
         <span class="swatch"></span>
-        <span id="tb-app-label">Whitelist.exe</span>
+        <span id="tb-app-label">OpenSea Mint</span>
       </div>
       <div class="tb-clock">
         <span class="ldot"></span>
@@ -947,7 +951,7 @@
       }
       function goHome() {
         showView("view-home");
-        setTaskbar("Whitelist.exe");
+        setTaskbar("OpenSea Mint");
       }
       function goSuccess() {
         showView("view-success");
