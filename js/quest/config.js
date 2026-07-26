@@ -13,9 +13,9 @@ export const CONFIG = {
 
   // --- X (Twitter) quest links ---
   xProfile:     'https://x.com/KHFRHN',                                     // Task 1 — Follow
-  xLikeLink:    'https://x.com/KHFRHN/status/2081425398941048916',          // Task 2 — Like
-  xRepostLink:  'https://x.com/KHFRHN/status/2081425398941048916',          // Task 3 — Repost
-  xCommentLink: 'https://x.com/KHFRHN/status/2081425398941048916',          // Task 4 — Comment
+  xLikeLink:    'https://x.com/KHFRHN/status/2081451476833235356',          // Task 2 — Like
+  xRepostLink:  'https://x.com/KHFRHN/status/2081451476833235356',          // Task 3 — Repost
+  xCommentLink: 'https://x.com/KHFRHN/status/2081451476833235356',          // Task 4 — Comment
 
   // --- Google Apps Script Web App (whitelist submission endpoint) ---
   // doPost expects form fields: username, comment, wallet.
