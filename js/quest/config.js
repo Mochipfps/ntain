@@ -1,4 +1,5 @@
 export const CONFIG = 
+  
   introVideo: 'assets/video/intro.mp4',
 
   xProfile:     'https://x.com/KHFRHN',                                 
