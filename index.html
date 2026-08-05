@@ -21,6 +21,11 @@
 
   <div id="game-root"></div>
 
+  <div id="rotate-hint">
+    <div class="rot-ico">&#128241;</div>
+    <div class="rot-msg">Please rotate your device<br>to landscape to play.</div>
+  </div>
+
   <div id="desktop">
     <div class="desktop-glow"></div>
 
@@ -195,7 +200,9 @@
       <div class="menu-buttons">
         <button class="w95-btn" data-pause="resume">Resume</button>
         <button class="w95-btn" data-pause="settings">Settings</button>
-        <button class="w95-btn" data-pause="quit">Quit to Menu</button>
+        <button class="w95-btn" data-pause="controls">Controls</button>
+        <button class="w95-btn" data-pause="quit">Return to Main Menu</button>
+        <button class="w95-btn" data-pause="exit">Exit Game</button>
       </div>
     </div>
   </div>
@@ -379,6 +386,7 @@
     </div>
   </div>
 
+  <!-- ============ PHASE 7 — LIVE ECOSYSTEM WINDOWS ============ -->
 
   <div class="win95-window game-dialog hidden" id="season-window">
     <div class="title-bar"><span class="title-bar-text"><span class="title-ico">&#127775;</span> Season Hub</span>
@@ -428,6 +436,7 @@
       <div class="dialog-actions"><button class="w95-btn" data-eco-close="accessibility-window">Close</button></div></div>
   </div>
 
+  <!-- ============ GAME MODULES ============ -->
   <script type="module" src="js/main.js"></script>
 </body>
 </html>
