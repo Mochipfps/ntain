@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: #008080; font-family: 'VT323', monospace; -webkit-font-smoothing: none; }
+  ::selection { background: #0021c9; color: #fff; }
+  a { color: #0021c9; text-decoration: underline; }
+  a:hover { color: #d8177f; }
+  #hl-content::-webkit-scrollbar, .hl-scroll::-webkit-scrollbar { width: 16px; height: 16px; }
+  #hl-content::-webkit-scrollbar-track, .hl-scroll::-webkit-scrollbar-track { background: #c0c0c0; box-shadow: inset 1px 1px 0 #808080; }
+  #hl-content::-webkit-scrollbar-thumb, .hl-scroll::-webkit-scrollbar-thumb { background: #c0c0c0; border: 2px solid; border-color: #ffffff #808080 #808080 #ffffff; }
+  @keyframes hlpulse { 0%,100% { opacity: 0.45; } 50% { opacity: 0.85; } }
+  #hl-featured-grid { grid-template-columns: repeat(6, 1fr); }
+  @media (max-width: 1200px) { #hl-featured-grid { grid-template-columns: repeat(4, 1fr) !important; } }
+  @media (max-width: 900px) {
+    #hl-grid { grid-template-columns: 1fr !important; }
+    #hl-logo-tag { display: none !important; }
+    #hl-featured-grid { grid-template-columns: repeat(3, 1fr) !important; }
+  }
+  @media (max-width: 620px) {
+    #hl-nav { justify-content: center !important; }
+    #hl-heading { font-size: 34px !important; }
+    #hl-featured-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  }
+</style>
+</helmet>
+
+<div id="hl-os" style="height:100vh;width:100vw;display:flex;flex-direction:column;overflow:hidden;background:#008080;font-family:'VT323',monospace">
+
+  <!-- ===== MAXIMIZED WINDOW ===== -->
+  <div style="flex:1;min-height:0;margin:2px;display:flex;flex-direction:column;background:#c0c0c0;border:3px solid;border-color:#dfdfdf #404040 #404040 #dfdfdf;box-shadow:inset 1px 1px 0 #ffffff,inset -1px -1px 0 #808080">
+
+    <!-- top title bar -->
+    <div style="height:28px;background:linear-gradient(#0a30e0,#0018b0);display:flex;align-items:center;justify-content:flex-end;padding:0 4px;gap:3px;flex-shrink:0">
+      <div style="width:22px;height:20px;background:#c0c0c0;border:2px solid;border-color:#ffffff #808080 #808080 #ffffff;display:flex;align-items:flex-end;justify-content:center;padding-bottom:3px"><div style="width:9px;height:3px;background:#000"></div></div>
+      <div style="width:22px;height:20px;background:#c0c0c0;border:2px solid;border-color:#ffffff #808080 #808080 #ffffff;display:flex;align-items:center;justify-content:center"><div style="width:11px;height:9px;border:2px solid #000;border-top-width:3px"></div></div>
+      <div style="width:22px;height:20px;background:#c0c0c0;border:2px solid;border-color:#ffffff #808080 #808080 #ffffff;display:flex;align-items:center;justify-content:center;font-family:'Press Start 2P';font-size:9px;color:#000">✕</div>
+    </div>
+
+    <!-- ===== NAV BAR ===== -->
+    <div style="flex-shrink:0;padding:8px;border-bottom:2px solid #808080;background:#c0c0c0">
+      <div id="hl-nav" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <!-- logo -->
+        <div style="display:flex;align-items:center;gap:12px;margin-right:6px">
+          <div style="width:56px;height:56px;background:#c0c0c0;border:2px solid;border-color:#808080 #ffffff #ffffff #808080;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+            <svg viewBox="0 0 32 32" width="34" height="34" style="image-rendering:pixelated"><path d="M16 27C16 27 4 19.5 4 11.5C4 8 6.5 5.5 10 5.5C12.2 5.5 14.4 6.8 16 9C17.6 6.8 19.8 5.5 22 5.5C25.5 5.5 28 8 28 11.5C28 19.5 16 27 16 27Z" fill="#ff3d9a" stroke="#b81070" stroke-width="1.5"/><rect x="9" y="10" width="3" height="3" fill="#ffb3d9"/></svg>
+          </div>
+          <div>
+            <div style="font-family:'Press Start 2P';font-size:clamp(18px,2.6vw,30px);color:#111;letter-spacing:1px;line-height:1">HOOD LUST</div>
+            <div id="hl-logo-tag" style="font-size:17px;color:#333;margin-top:6px">Built by the community, for the culture.</div>
+          </div>
+        </div>
+
+        <div style="flex:1"></div>
+
+        <!-- nav buttons -->
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:stretch">
+          <button onClick="{{ goHome }}" style="font-family:'Press Start 2P';font-size:11px;color:#d8177f;padding:12px 14px;cursor:pointer;background:#c0c0c0;border:2px solid;border-color:#ffffff #808080 #808080 #ffffff;box-shadow:inset 1px 1px 0 #dfdfdf,inset -1px -1px 0 #000">HOME</button>
+          <button onClick="{{ loadNFTs }}" style="font-family:'Press Start 2P';font-size:11px;color:#111;padding:12px 14px;cursor:pointer;background:#c0c0c0;border:2px solid;border-color:#ffffff #808080 #808080 #ffffff;box-shadow:inset 1px 1px 0 #dfdfdf,inset -1px -1px 0 #000">MY NFTS</button>
+          <button onClick="{{ openStake }}" style="font-family:'Press Start 2P';font-size:11px;color:#7a7a7a;padding:12px 12px;cursor:pointer;background:#bcbcbc;border:2px solid;border-color:#ffffff #808080 #808080 #ffffff;box-shadow:inset 1px 1px 0 #d4d4d4,inset -1px -1px 0 #000;display:flex;align-items:center;gap:6px">
+            <svg viewBox="0 0 24 24" width="12" height="12"><rect x="5" y="10" width="14" height="10" rx="1" fill="#7a7a7a"/><path d="M8 10V7a4 4 0 0 1 8 0v3" fill="none" stroke="#7a7a7a" stroke-width="2"/></svg>STAKE
+          </button>
+          <button onClick="{{ openRoadmap }}" style="font-family:'Press Start 2P';font-size:11px;color:#111;padding:12px 14px;cursor:pointer;background:#c0c0c0;border:2px solid;border-color:#ffffff #808080 #808080 #ffffff;box-shadow:inset 1px 1px 0 #dfdfdf,inset -1px -1px 0 #000">ROADMAP</button>
+          <button onClick="{{ openFaq }}" style="font-family:'Press Start 2P';font-size:11px;color:#111;padding:12px 14px;cursor:pointer;background:#c0c0c0;border:2px solid;border-color:#ffffff #808080 #808080 #ffffff;box-shadow:inset 1px 1px 0 #dfdfdf,inset -1px -1px 0 #000">FAQ</button>
+          <button onClick="{{ openTwitter }}" style="font-family:'Press Start 2P';font-size:11px;color:#111;padding:12px 14px;cursor:pointer;background:#c0c0c0;border:2px solid;border-color:#ffffff #808080 #808080 #ffffff;box-shadow:inset 1px 1px 0 #dfdfdf,inset -1px -1px 0 #000;display:flex;align-items:center;gap:7px">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="#1da1f2"><path d="M23 4.9c-.8.4-1.7.6-2.6.8.9-.6 1.6-1.4 2-2.5-.9.5-1.9.9-2.9 1.1C18.6 3.4 17.4 3 16.1 3c-2.6 0-4.6 2.1-4.6 4.6 0 .4 0 .7.1 1.1C7.7 8.5 4.1 6.6 1.7 3.7c-.4.7-.6 1.4-.6 2.3 0 1.6.8 3 2 3.8-.7 0-1.4-.2-2-.5v.1c0 2.2 1.6 4.1 3.7 4.5-.4.1-.8.2-1.2.2-.3 0-.6 0-.8-.1.6 1.8 2.3 3.1 4.3 3.2-1.6 1.2-3.5 2-5.7 2-.4 0-.7 0-1.1-.1 2 1.3 4.4 2 7 2 8.4 0 13-7 13-13v-.6c.9-.6 1.6-1.4 2.2-2.3z"/></svg>TWITTER
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== CONTENT ===== -->
+    <div id="hl-content" style="flex:1;min-height:0;overflow-y:auto;padding:12px">
+      <div id="hl-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:stretch">
+
+        <!-- LEFT TOP: artwork window -->
+        <div style="grid-column:1;display:flex;flex-direction:column;background:#c0c0c0;border:2px solid;border-color:#ffffff #808080 #808080 #ffffff;box-shadow:inset 1px 1px 0 #dfdfdf,inset -1px -1px 0 #000;min-height:420px">
+          <div style="height:26px;background:linear-gradient(#0a30e0,#0018b0);display:flex;align-items:center;justify-content:space-between;padding:0 4px 0 8px;flex-shrink:0">
+            <span style="font-family:'Press Start 2P';font-size:10px;color:#fff">hood_lust.png</span>
+            <div style="display:flex;gap:3px">
+              <div style="width:19px;height:17px;background:#c0c0c0;border:2px solid;border-color:#ffffff #808080 #808080 #ffffff;display:flex;align-items:flex-end;justify-content:center;padding-bottom:2px"><div style="width:8px;height:2px;background:#000"></div></div>
+              <div style="width:19px;height:17px;background:#c0c0c0;border:2px solid;border-color:#ffffff #808080 #808080 #ffffff;display:flex;align-items:center;justify-content:center"><div style="width:9px;height:8px;border:2px solid #000;border-top-width:3px"></div></div>
+              <div style="width:19px;height:17px;background:#c0c0c0;border:2px solid;border-color:#ffffff #808080 #808080 #ffffff;display:flex;align-items:center;justify-content:center;font-family:'Press Start 2P';font-size:8px">✕</div>
+            </div>
+          </div>
+          <div style="flex:1;margin:6px;border:2px solid;border-color:#808080 #ffffff #ffffff #808080;position:relative;overflow:hidden;background-color:#c7c9e8;background-image:linear-gradient(45deg,#9a9ccc 25%,transparent 25%),linear-gradient(-45deg,#9a9ccc 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#9a9ccc 75%),linear-gradient(-45deg,transparent 75%,#9a9ccc 75%);background-size:56px 56px;background-position:0 0,0 28px,28px -28px,-28px 0">
+            {{ artworkImg }}
+          </div>
+        </div>
+
+        <!-- RIGHT TOP: About window -->
+        <div style="grid-column:2;display:flex;flex-direction:column;background:#c0c0c0;border:2px solid;border-color:#ffffff #808080 #808080 #ffffff;box-shadow:inset 1px 1px 0 #dfdfdf,inset -1px -1px 0 #000;min-height:420px">
+          <div style="height:26px;background:linear-gradient(#0a30e0,#0018b0);display:flex;align-items:center;justify-content:space-between;padding:0 4px 0 8px;flex-shrink:0">
+            <span style="font-family:'Press Start 2P';font-size:10px;color:#fff">About Hood Lust</span>
+            <div style="display:flex;gap:3px">
+              <div style="width:19px;height:17px;background:#c0c0c0;border:2px solid;border-color:#ffffff #808080 #808080 #ffffff;display:flex;align-items:flex-end;justify-content:center;padding-bottom:2px"><div style="width:8px;height:2px;background:#000"></div></div>
+              <div style="width:19px;height:17px;background:#c0c0c0;border:2px solid;border-color:#ffffff #808080 #808080 #ffffff;display:flex;align-items:center;justify-content:center"><div style="width:9px;height:8px;border:2px solid #000;border-top-width:3px"></div></div>
+              <div style="width:19px;height:17px;background:#c0c0c0;border:2px solid;border-color:#ffffff #808080 #808080 #ffffff;display:flex;align-items:center;justify-content:center;font-family:'Press Start 2P';font-size:8px">✕</div>
+            </div>
+          </div>
+          <div style="flex:1;padding:22px 24px;display:flex;flex-direction:column">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between">
+              <div id="hl-heading" style="font-family:'Press Start 2P';font-size:clamp(30px,4.4vw,56px);color:#111;line-height:1.05;letter-spacing:1px">HOOD LUST</div>
+              <svg viewBox="0 0 32 32" width="28" height="28" style="flex-shrink:0;margin-top:6px"><path d="M16 22C16 22 7 16 7 10.5C7 8 9 6.5 11 6.5C12.6 6.5 14.2 7.5 16 9.5C17.8 7.5 19.4 6.5 21 6.5C23 6.5 25 8 25 10.5C25 16 16 22 16 22Z" fill="#ff3d9a"/></svg>
+            </div>
+            <div style="height:3px;background:#808080;margin:16px 0 18px;box-shadow:0 1px 0 #fff"></div>
+            <p style="font-size:23px;color:#111;line-height:1.35;margin:0 0 20px">A collection of <b>1000</b> unique Hood Lusts living on the <b style="color:#d8177f">ROBINHOOD</b> chain.<br>Built by the community, for the culture.</p>
+
+            <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:22px">
+              <button onClick="{{ viewCollection }}" style="font-family:'Press Start 2P';font-size:12px;color:#fff;padding:16px 22px;cursor:pointer;background:#ff3d9a;border:2px solid;border-color:#ffb3d9 #a01060 #a01060 #ffb3d9;box-shadow:inset 1px 1px 0 #ff8bc4,inset -1px -1px 0 #7a0c4a">VIEW COLLECTION</button>
+              <button onClick="{{ openStake }}" style="font-family:'Press Start 2P';font-size:12px;color:#6f6f6f;padding:16px 22px;cursor:pointer;background:#bcbcbc;border:2px solid;border-color:#ffffff #808080 #808080 #ffffff;box-shadow:inset 1px 1px 0 #d4d4d4,inset -1px -1px 0 #000;display:flex;align-items:center;gap:9px">
+                <svg viewBox="0 0 24 24" width="14" height="14"><rect x="5" y="10" width="14" height="10" rx="1" fill="#7a7a7a"/><path d="M8 10V7a4 4 0 0 1 8 0v3" fill="none" stroke="#7a7a7a" stroke-width="2"/></svg>STAKE NOW
+              </button>
+            </div>
+
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:auto">
+              <!-- SUPPLY -->
+              <div style="background:#c0c0c0;border:2px solid;border-color:#ffffff #808080 #808080 #ffffff;box-shadow:inset 1px 1px 0 #dfdfdf,inset -1px -1px 0 #000;padding:12px;display:flex;align-items:center;gap:10px">
+                <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#e0187f" stroke-width="1.8"><path d="M12 2 22 7v10L12 22 2 17V7z"/><path d="M2 7l10 5 10-5M12 12v10"/></svg>
+                <div><div style="font-family:'Press Start 2P';font-size:8px;color:#333">SUPPLY</div><div style="font-size:24px;color:#d8177f;font-weight:bold;margin-top:2px">1000</div></div>
+              </div>
+              <!-- CHAIN -->
+              <div style="background:#c0c0c0;border:2px solid;border-color:#ffffff #808080 #808080 #ffffff;box-shadow:inset 1px 1px 0 #dfdfdf,inset -1px -1px 0 #000;padding:12px;display:flex;align-items:center;gap:10px">
+                <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#008000" stroke-width="2"><path d="M9.5 12a3 3 0 0 1 3-3h3.5a3 3 0 0 1 0 6H14"/><path d="M14.5 12a3 3 0 0 1-3 3H8a3 3 0 0 1 0-6h2"/></svg>
+                <div><div style="font-family:'Press Start 2P';font-size:8px;color:#333">CHAIN</div><div style="font-size:22px;color:#008000;font-weight:bold;margin-top:2px">ROBINHOOD</div></div>
+              </div>
+              <!-- CONNECT WALLET PANEL -->
+              <div style="background:#c0c0c0;border:2px solid;border-color:#ffffff #808080 #808080 #ffffff;box-shadow:inset 1px 1px 0 #dfdfdf,inset -1px -1px 0 #000;padding:12px;display:flex;flex-direction:column;justify-content:center;min-height:74px">
+                <sc-if value="{{ notConnected }}" hint-placeholder-val="{{ true }}">
+                  <button onClick="{{ connectWallet }}" style="width:100%;height:100%;font-family:'Press Start 2P';font-size:9px;color:#111;padding:10px 6px;cursor:pointer;background:#c0c0c0;border:2px solid;border-color:#ffffff #808080 #808080 #ffffff;box-shadow:inset 1px 1px 0 #dfdfdf,inset -1px -1px 0 #000;display:flex;align-items:center;justify-content:center;gap:8px;line-height:1.4">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#0021c9" stroke-width="2"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M16 12h3M3 10h14"/></svg>CONNECT<br>WALLET
+                  </button>
+                </sc-if>
+                <sc-if value="{{ connected }}">
+                  <div style="font-family:'Press Start 2P';font-size:8px;color:#333">CONNECTED WALLET</div>
+                  <div style="font-size:20px;color:#111;margin-top:3px;word-break:break-all">{{ walletShort }}</div>
+                  <div style="font-size:17px;color:#008000;margin-top:2px;display:flex;align-items:center;gap:6px"><span style="width:9px;height:9px;background:#00b000;border-radius:50%;display:inline-block;box-shadow:0 0 0 1px #006000"></span>{{ statusText }}</div>
+                  <div style="font-size:15px;color:#555;margin-top:2px">Chain: Robinhood Network</div>
+                </sc-if>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- LEFT BOTTOM: Stake & Earn -->
+        <div style="grid-column:1;display:flex;flex-direction:column;background:#c0c0c0;border:2px solid;border-color:#ffffff #808080 #808080 #ffffff;box-shadow:inset 1px 1px 0 #dfdfdf,inset -1px -1px 0 #000;min-height:280px">
+          <div style="height:26px;background:linear-gradient(#0a30e0,#0018b0);display:flex;align-items:center;justify-content:space-between;padding:0 4px 0 8px;flex-shrink:0">
+            <span style="font-family:'Press Start 2P';font-size:10px;color:#fff">Stake &amp; Earn</span>
+            <div style="display:flex;gap:3px">
+              <div style="width:19px;height:17px;background:#c0c0c0;border:2px solid;border-color:#ffffff #808080 #808080 #ffffff;display:flex;align-items:flex-end;justify-content:center;padding-bottom:2px"><div style="width:8px;height:2px;background:#000"></div></div>
+              <div style="width:19px;height:17px;background:#c0c0c0;border:2px solid;border-color:#ffffff #808080 #808080 #ffffff;display:flex;align-items:center;justify-content:center"><div style="width:9px;height:8px;border:2px solid #000;border-top-width:3px"></div></div>
+              <div style="width:19px;height:17px;background:#c0c0c0;border:2px solid;border-color:#ffffff #808080 #808080 #ffffff;display:flex;align-items:center;justify-content:center;font-family:'Press Start 2P';font-size:8px">✕</div>
+            </div>
+          </div>
+          <div style="flex:1;padding:20px;display:flex;align-items:center;gap:22px;flex-wrap:wrap">
+            <div style="width:130px;height:130px;flex-shrink:0;background:#c0c0c0;border:2px solid;border-color:#808080 #ffffff #ffffff #808080;display:flex;align-items:center;justify-content:center">
+              <svg viewBox="0 0 100 100" width="104" height="104">
+                <rect x="10" y="12" width="76" height="76" rx="4" fill="#b8b8b8" stroke="#606060" stroke-width="3"/>
+                <rect x="18" y="20" width="60" height="60" rx="3" fill="#d0d0d0" stroke="#808080" stroke-width="2"/>
+                <circle cx="48" cy="50" r="20" fill="#c8c8c8" stroke="#606060" stroke-width="3"/>
+                <circle cx="48" cy="50" r="7" fill="#a0a0a0" stroke="#505050" stroke-width="2"/>
+                <g stroke="#707070" stroke-width="3" stroke-linecap="round"><line x1="48" y1="30" x2="48" y2="38"/><line x1="48" y1="62" x2="48" y2="70"/><line x1="28" y1="50" x2="36" y2="50"/><line x1="60" y1="50" x2="68" y2="50"/></g>
+                <rect x="80" y="42" width="12" height="16" rx="2" fill="#a0a0a0" stroke="#606060" stroke-width="2"/>
+              </svg>
+            </div>
+            <div style="flex:1;min-width:200px">
+              <p style="font-family:'Press Start 2P';font-size:13px;color:#111;line-height:1.7;margin:0 0 18px">Stake your Hood Lust NFTs and earn passive rewards.</p>
+              <div style="display:flex;gap:26px;flex-wrap:wrap">
+                <div style="text-align:center">
+                  <div style="width:56px;height:56px;border-radius:50%;border:2px solid #808080;background:#f4f4f4;display:flex;align-items:center;justify-content:center;margin:0 auto">
+                    <svg viewBox="0 0 24 24" width="26" height="26"><path d="M3 5h18v2.6l-7 .9v10.5h-4V8.5L3 7.6z" fill="#e31937"/></svg>
+                  </div>
+                  <div style="font-size:18px;color:#111;margin-top:6px">$TSLA</div>
+                </div>
+                <div style="text-align:center">
+                  <div style="width:56px;height:56px;border-radius:50%;border:2px solid #808080;background:#f4f4f4;display:flex;align-items:center;justify-content:center;margin:0 auto">
+                    <svg viewBox="0 0 24 24" width="26" height="26"><circle cx="12" cy="12" r="9" fill="none" stroke="#76b900" stroke-width="2.4"/><circle cx="12" cy="12" r="3.4" fill="#76b900"/></svg>
+                  </div>
+                  <div style="font-size:18px;color:#111;margin-top:6px">$NVDA</div>
+                </div>
+                <div style="text-align:center">
+                  <div style="width:56px;height:56px;border-radius:50%;border:2px solid #808080;background:#f4f4f4;display:flex;align-items:center;justify-content:center;margin:0 auto">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="#111"><path d="M17.5 12.6c0-2 1.6-3 1.7-3-.9-1.4-2.4-1.6-2.9-1.6-1.2-.1-2.4.7-3 .7s-1.6-.7-2.6-.7c-1.3 0-2.6.8-3.3 2-1.4 2.4-.4 6 1 8 .7 1 1.4 2.1 2.4 2 1-.1 1.3-.6 2.5-.6s1.5.6 2.6.6 1.7-1 2.3-2c.7-1.1 1-2.2 1-2.2s-1.7-.7-1.7-2.6zM15.5 6.3c.5-.7.9-1.6.8-2.5-.8 0-1.7.5-2.3 1.2-.5.6-.9 1.5-.8 2.4.9.1 1.8-.4 2.3-1.1z"/></svg>
+                  </div>
+                  <div style="font-size:18px;color:#111;margin-top:6px">$AAPL</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT BOTTOM: Staking Activity -->
+        <div style="grid-column:2;display:flex;flex-direction:column;background:#c0c0c0;border:2px solid;border-color:#ffffff #808080 #808080 #ffffff;box-shadow:inset 1px 1px 0 #dfdfdf,inset -1px -1px 0 #000;min-height:280px">
+          <div style="height:26px;background:linear-gradient(#0a30e0,#0018b0);display:flex;align-items:center;justify-content:space-between;padding:0 4px 0 8px;flex-shrink:0">
+            <span style="font-family:'Press Start 2P';font-size:10px;color:#fff">Staking Activity</span>
+            <div style="display:flex;gap:3px">
+              <div style="width:19px;height:17px;background:#c0c0c0;border:2px solid;border-color:#ffffff #808080 #808080 #ffffff;display:flex;align-items:flex-end;justify-content:center;padding-bottom:2px"><div style="width:8px;height:2px;background:#000"></div></div>
+              <div style="width:19px;height:17px;background:#c0c0c0;border:2px solid;border-color:#ffffff #808080 #808080 #ffffff;display:flex;align-items:center;justify-content:center"><div style="width:9px;height:8px;border:2px solid #000;border-top-width:3px"></div></div>
+              <div style="width:19px;height:17px;background:#c0c0c0;border:2px solid;border-color:#ffffff #808080 #808080 #ffffff;display:flex;align-items:center;justify-content:center;font-family:'Press Start 2P';font-size:8px">✕</div>
+            </div>
+          </div>
+          <div style="flex:1;padding:14px">
+            <div style="border:2px solid;border-color:#808080 #ffffff #ffffff #808080;background:#c0c0c0">
+              <div style="display:grid;grid-template-columns:1fr 1fr;background:#c0c0c0;border-bottom:2px solid #808080">
+                <div style="font-family:'Press Start 2P';font-size:10px;color:#111;padding:12px;text-align:center;border-right:2px solid #808080">TYPE</div>
+                <div style="font-family:'Press Start 2P';font-size:10px;color:#111;padding:12px;text-align:center">STATUS</div>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid #a0a0a0">
+                <div style="padding:14px;display:flex;align-items:center;gap:10px;border-right:2px solid #808080"><svg viewBox="0 0 24 24" width="20" height="20"><rect x="5" y="10" width="14" height="10" rx="1" fill="#7a7a7a"/><path d="M8 10V7a4 4 0 0 1 8 0v3" fill="none" stroke="#7a7a7a" stroke-width="2"/></svg><span style="font-size:20px;color:#111">STAKING</span></div>
+                <div style="padding:14px;font-size:20px;color:#777;text-align:center">No Active Staking</div>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid #a0a0a0">
+                <div style="padding:14px;display:flex;align-items:center;gap:10px;border-right:2px solid #808080"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#b8890c" stroke-width="2"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg><span style="font-size:20px;color:#111">REWARDS</span></div>
+                <div style="padding:14px;font-size:20px;color:#777;text-align:center">No Active Rewards</div>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr">
+                <div style="padding:14px;display:flex;align-items:center;gap:10px;border-right:2px solid #808080"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#555" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg><span style="font-size:20px;color:#111">ACTIVITY</span></div>
+                <div style="padding:14px;font-size:20px;color:#777;text-align:center">No Recent Activity</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- FEATURED HOODLUST COLLECTION -->
+      <div style="margin-top:12px;display:flex;flex-direction:column;background:#c0c0c0;border:2px solid;border-color:#ffffff #808080 #808080 #ffffff;box-shadow:inset 1px 1px 0 #dfdfdf,inset -1px -1px 0 #000">
+        <div style="height:26px;background:linear-gradient(#0a30e0,#0018b0);display:flex;align-items:center;justify-content:space-between;padding:0 4px 0 8px;flex-shrink:0">
+          <span style="font-family:'Press Start 2P';font-size:10px;color:#fff">Featured Hoodlust Collection</span>
+          <div style="display:flex;gap:3px">
+            <div style="width:19px;height:17px;background:#c0c0c0;border:2px solid;border-color:#ffffff #808080 #808080 #ffffff;display:flex;align-items:flex-end;justify-content:center;padding-bottom:2px"><div style="width:8px;height:2px;background:#000"></div></div>
+            <div style="width:19px;height:17px;background:#c0c0c0;border:2px solid;border-color:#ffffff #808080 #808080 #ffffff;display:flex;align-items:center;justify-content:center"><div style="width:9px;height:8px;border:2px solid #000;border-top-width:3px"></div></div>
+            <div style="width:19px;height:17px;background:#c0c0c0;border:2px solid;border-color:#ffffff #808080 #808080 #ffffff;display:flex;align-items:center;justify-content:center;font-family:'Press Start 2P';font-size:8px">✕</div>
+          </div>
+        </div>
+        <div style="padding:14px">
+          {{ featuredGridEl }}
+        </div>
+      </div>
+
+      <!-- footer copyright -->
+      <div style="margin-top:14px;padding:10px 6px;border-top:2px solid #808080;box-shadow:0 -1px 0 #fff;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
+        <span style="font-family:'Press Start 2P';font-size:9px;color:#333;letter-spacing:1px">© 2026 HOOD LUST. ALL RIGHTS RESERVED.</span>
+        <span style="font-family:'Press Start 2P';font-size:9px;color:#333;display:flex;gap:12px">
+          <a onClick="{{ openTwitter }}" style="color:#333;cursor:pointer;text-decoration:none">TWITTER</a><span>|</span><a onClick="{{ openDocs }}" style="color:#333;cursor:pointer;text-decoration:none">DOCS</a>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TASKBAR ===== -->
+  <div style="flex-shrink:0;height:44px;background:#c0c0c0;border-top:2px solid #dfdfdf;display:flex;align-items:center;gap:6px;padding:4px 6px">
+    <button onClick="{{ goHome }}" style="height:34px;display:flex;align-items:center;gap:8px;padding:0 12px;cursor:pointer;background:#c0c0c0;border:2px solid;border-color:#ffffff #808080 #808080 #ffffff;box-shadow:inset 1px 1px 0 #dfdfdf,inset -1px -1px 0 #000;font-family:'Press Start 2P';font-size:11px;color:#111">
+      <svg viewBox="0 0 24 24" width="18" height="18"><rect x="2" y="3" width="9" height="8" fill="#e31937"/><rect x="13" y="3" width="9" height="8" fill="#2aa52a"/><rect x="2" y="13" width="9" height="8" fill="#1a7ae0"/><rect x="13" y="13" width="9" height="8" fill="#f0b000"/></svg>Start
+    </button>
+    <div style="height:34px;flex:1;min-width:0;display:flex;align-items:center;gap:8px;padding:0 10px;background:#c0c0c0;border:2px solid;border-color:#808080 #ffffff #ffffff #808080;box-shadow:inset 1px 1px 0 #000;max-width:340px;overflow:hidden">
+      <svg viewBox="0 0 32 32" width="18" height="18" style="flex-shrink:0"><path d="M16 27C16 27 4 19.5 4 11.5C4 8 6.5 5.5 10 5.5C12.2 5.5 14.4 6.8 16 9C17.6 6.8 19.8 5.5 22 5.5C25.5 5.5 28 8 28 11.5C28 19.5 16 27 16 27Z" fill="#ff3d9a"/></svg>
+      <span style="font-size:18px;color:#111;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Hood Lust - Official Website</span>
+    </div>
+    <div style="flex:1"></div>
+    <div style="height:34px;display:flex;align-items:center;gap:12px;padding:0 12px;background:#c0c0c0;border:2px solid;border-color:#808080 #ffffff #ffffff #808080;box-shadow:inset 1px 1px 0 #000">
+      <button onClick="{{ toggleMusic }}" title="Toggle background music" style="background:none;border:none;cursor:pointer;padding:0;display:flex;align-items:center">
+        <sc-if value="{{ musicOn }}">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="#111"><path d="M4 9v6h4l5 5V4L8 9H4z"/><path d="M16 8a5 5 0 0 1 0 8" fill="none" stroke="#111" stroke-width="1.8"/><path d="M18.5 5.5a8.5 8.5 0 0 1 0 13" fill="none" stroke="#111" stroke-width="1.8"/></svg>
+        </sc-if>
+        <sc-if value="{{ musicOff }}" hint-placeholder-val="{{ true }}">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="#111"><path d="M4 9v6h4l5 5V4L8 9H4z"/><path d="M16 9l5 6M21 9l-5 6" stroke="#c01010" stroke-width="1.8"/></svg>
+        </sc-if>
+      </button>
+      <span style="font-size:18px;color:#111;white-space:nowrap">{{ clock }}</span>
+    </div>
+  </div>
+
+  <!-- ===== POPUP OVERLAY ===== -->
+  <sc-if value="{{ anyPopup }}">
+    <div onClick="{{ closePopup }}" style="position:fixed;inset:0;background:rgba(0,0,0,0.35);display:flex;align-items:center;justify-content:center;z-index:100;padding:20px">
+      <div onClick="{{ stop }}" style="width:100%;max-width:{{ popupWidth }};max-height:88vh;display:flex;flex-direction:column;background:#c0c0c0;border:3px solid;border-color:#dfdfdf #404040 #404040 #dfdfdf;box-shadow:inset 1px 1px 0 #ffffff,inset -1px -1px 0 #808080,6px 6px 0 rgba(0,0,0,0.3)">
+        <div style="height:28px;background:linear-gradient(#0a30e0,#0018b0);display:flex;align-items:center;justify-content:space-between;padding:0 4px 0 10px;flex-shrink:0">
+          <span style="font-family:'Press Start 2P';font-size:10px;color:#fff">{{ popupTitle }}</span>
+          <button onClick="{{ closePopup }}" style="width:22px;height:20px;background:#c0c0c0;border:2px solid;border-color:#ffffff #808080 #808080 #ffffff;display:flex;align-items:center;justify-content:center;font-family:'Press Start 2P';font-size:9px;cursor:pointer;color:#000">✕</button>
+        </div>
+
+        <!-- generic message popups -->
+        <sc-if value="{{ isMessagePopup }}">
+          <div style="padding:26px 24px;display:flex;flex-direction:column;gap:20px">
+            <div style="display:flex;gap:18px;align-items:flex-start">
+              <div style="width:46px;height:46px;flex-shrink:0;border-radius:50%;background:#0021c9;color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Press Start 2P';font-size:18px">{{ popupIcon }}</div>
+              <p style="font-size:22px;color:#111;line-height:1.4;margin:0;white-space:pre-line">{{ popupMessage }}</p>
+            </div>
+            <button onClick="{{ closePopup }}" style="align-self:center;font-family:'Press Start 2P';font-size:11px;padding:14px 34px;cursor:pointer;background:#c0c0c0;border:2px solid;border-color:#ffffff #808080 #808080 #ffffff;box-shadow:inset 1px 1px 0 #dfdfdf,inset -1px -1px 0 #000;color:#111">OK</button>
+          </div>
+        </sc-if>
+
+        <!-- PURCHASE / BUY popup -->
+        <sc-if value="{{ isBuy }}">
+          <div style="padding:22px 24px;display:flex;flex-direction:column;gap:20px">
+            <div style="display:flex;gap:16px;align-items:center">
+              <div style="width:92px;height:92px;flex-shrink:0;border:2px solid;border-color:#808080 #ffffff #ffffff #808080;background:#e6e6f0;overflow:hidden;display:flex;align-items:center;justify-content:center">
+                {{ buyThumb }}
+              </div>
+              <div style="min-width:0">
+                <div style="font-family:'Press Start 2P';font-size:11px;color:#111;line-height:1.5;word-break:break-word">{{ buyName }}</div>
+                <div style="font-family:'Press Start 2P';font-size:8px;color:#d8177f;margin-top:8px">#{{ buyId }}</div>
+                <div style="font-size:20px;color:#555;margin-top:10px">Marketplace:&nbsp;<b style="color:#111">OpenSea</b></div>
+              </div>
+            </div>
+            <button onClick="{{ buyOnOpensea }}" style="align-self:stretch;font-family:'Press Start 2P';font-size:11px;padding:15px;cursor:pointer;color:#fff;background:#ff3d9a;border:2px solid;border-color:#ffb3d9 #a01060 #a01060 #ffb3d9;box-shadow:inset 1px 1px 0 #ff8bc4,inset -1px -1px 0 #7a0c4a">View on OpenSea</button>
+          </div>
+        </sc-if>
+
+        <!-- MY NFTS popup -->
+        <sc-if value="{{ isNfts }}">
+          <div class="hl-scroll" style="padding:16px;overflow-y:auto;min-height:180px">
+            <sc-if value="{{ nftLoading }}">
+              <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:50px 0">
+                <div style="font-family:'Press Start 2P';font-size:12px;color:#111">Reading wallet…</div>
+                <div style="font-size:20px;color:#555">Querying Hoodlust contract via Alchemy RPC</div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ nftError }}">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:14px;padding:40px 20px;text-align:center">
+                <div style="font-family:'Press Start 2P';font-size:11px;color:#c01010">Could not load NFTs</div>
+                <div style="font-size:19px;color:#555">{{ nftErrorMsg }}</div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ nftEmpty }}">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:14px;padding:50px 20px">
+                <svg viewBox="0 0 32 32" width="52" height="52"><path d="M16 27C16 27 4 19.5 4 11.5C4 8 6.5 5.5 10 5.5C12.2 5.5 14.4 6.8 16 9C17.6 6.8 19.8 5.5 22 5.5C25.5 5.5 28 8 28 11.5C28 19.5 16 27 16 27Z" fill="none" stroke="#999" stroke-width="2"/></svg>
+                <div style="font-family:'Press Start 2P';font-size:12px;color:#333;text-align:center;line-height:1.6">No Hoodlust NFTs Found.</div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ nftHas }}">
+              {{ nftGridEl }}
+            </sc-if>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = {
+    wallet: null,
+    clock: '',
+    musicOn: false,
+    activePopup: null,      // 'stake' | 'nfts' | 'buy' | 'docs' | 'roadmap' | 'faq' | 'nowallet'
+    nfts: [],               // wallet-owned (from MY NFTS)
+    nftLoading: false,
+    nftError: null,
+    ownedVerified: false,   // true once MY NFTS confirms ownership
+    collection: [],         // featured collection NFTs
+    collectionLoading: true,
+    collectionFailed: false,
+    artIndex: 0,            // index into the current artwork pool
+    artFade: true,          // artwork crossfade opacity
+    selectedNft: null,      // NFT chosen in the featured gallery
+  };
+
+  CONTRACT = '0x0be6e89cf774020d5a978865544b6ccc63e61a29';
+  NFT_API = 'https://robinhood-mainnet.g.alchemy.com/nft/v3/RuwUqA_knng_Xg7F0tmWq';
+  OPENSEA = 'https://opensea.io/collection/hoodlust';
+
+  componentDidMount() {
+    this.tick();
+    this.clockTimer = setInterval(() => this.tick(), 1000);
+    this.artTimer = setInterval(this.rotateArt, 9000);
+    this.loadCollection();
+    this.restoreWallet();
+    if (window.ethereum && window.ethereum.on) {
+      this._onAcc = (accs) => this.setState({ wallet: (accs && accs[0]) || null });
+      window.ethereum.on('accountsChanged', this._onAcc);
+    }
+    this._onKey = (e) => { if (e.key === 'Escape') this.closePopup(); };
+    window.addEventListener('keydown', this._onKey);
+  }
+  componentWillUnmount() {
+    clearInterval(this.clockTimer);
+    clearInterval(this.artTimer);
+    if (window.ethereum && window.ethereum.removeListener && this._onAcc) window.ethereum.removeListener('accountsChanged', this._onAcc);
+    window.removeEventListener('keydown', this._onKey);
+    if (this.audioCtx) { try { this.audioCtx.close(); } catch (e) {} }
+  }
+
+  tick() {
+    const d = new Date();
+    let h = d.getHours();
+    const m = String(d.getMinutes()).padStart(2, '0');
+    const ap = h >= 12 ? 'PM' : 'AM';
+    h = h % 12; if (h === 0) h = 12;
+    this.setState({ clock: h + ':' + m + ' ' + ap });
+  }
+
+  async restoreWallet() {
+    if (!window.ethereum) return;
+    try {
+      const accs = await window.ethereum.request({ method: 'eth_accounts' });
+      if (accs && accs[0]) this.setState({ wallet: accs[0] });
+    } catch (e) {}
+  }
+
+  connectWallet = async () => {
+    if (!window.ethereum) { this.setState({ activePopup: 'nowallet' }); return; }
+    try {
+      const accs = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      if (accs && accs[0]) this.setState({ wallet: accs[0] });
+    } catch (e) { /* user rejected */ }
+  };
+
+  resolveUrl(u) {
+    if (!u) return '';
+    if (u.startsWith('ipfs://')) return 'https://ipfs.io/ipfs/' + u.replace('ipfs://', '').replace(/^ipfs\//, '');
+    return u;
+  }
+
+  mapNft(n) {
+    const id = (n.tokenId != null ? String(n.tokenId) : (n.id && n.id.tokenId) || '?');
+    const img = this.resolveUrl(
+      (n.image && (n.image.cachedUrl || n.image.originalUrl || n.image.thumbnailUrl || n.image.pngUrl)) ||
+      (n.media && n.media[0] && n.media[0].gateway) ||
+      (n.raw && n.raw.metadata && n.raw.metadata.image) || ''
+    );
+    const name = n.name || (n.raw && n.raw.metadata && n.raw.metadata.name) || ('HoodLust #' + id);
+    return { id, name, image: img };
+  }
+
+  // ---- featured collection (auto, cached) ----
+  loadCollection = async () => {
+    try {
+      const cached = JSON.parse(sessionStorage.getItem('hoodlust_collection') || 'null');
+      if (cached && cached.length) { this.setState({ collection: cached, collectionLoading: false }); return; }
+    } catch (e) {}
+    try {
+      const url = this.NFT_API + '/getNFTsForContract?contractAddress=' + this.CONTRACT + '&withMetadata=true&limit=30';
+      const r = await fetch(url);
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      const d = await r.json();
+      const raw = d.nfts || d.ownedNfts || [];
+      const list = raw.map((n) => this.mapNft(n)).filter((x) => x.image);
+      try { sessionStorage.setItem('hoodlust_collection', JSON.stringify(list)); } catch (e) {}
+      this.setState({ collection: list, collectionLoading: false, collectionFailed: list.length === 0 });
+    } catch (e) {
+      this.setState({ collectionLoading: false, collectionFailed: true });
+    }
+  };
+
+  // ---- artwork window: current rotating pool ----
+  artPool() {
+    const owned = (this.state.nfts || []).filter((n) => n.image);
+    if (this.state.ownedVerified && owned.length) return owned;
+    return this.state.collection || [];
+  }
+
+  rotateArt = () => {
+    const pool = this.artPool();
+    if (pool.length < 2) return;
+    const next = (this.state.artIndex + 1) % pool.length;
+    const src = pool[next] && pool[next].image;
+    if (!src) return;
+    const swap = () => {
+      this.setState({ artFade: false });
+      setTimeout(() => this.setState({ artIndex: next, artFade: true }), 450);
+    };
+    const pre = new Image();
+    pre.onload = swap;
+    pre.onerror = swap;
+    pre.src = src;   // preload so there is no loading flash
+  };
+
+  // ---- MY NFTS: verify ownership (unchanged behavior) ----
+  loadNFTs = async () => {
+    if (!this.state.wallet) { this.setState({ activePopup: 'nowallet' }); return; }
+    this.setState({ activePopup: 'nfts', nftLoading: true, nftError: null, nfts: [] });
+    try {
+      const url = this.NFT_API + '/getNFTsForOwner?owner=' + this.state.wallet +
+        '&contractAddresses[]=' + this.CONTRACT + '&withMetadata=true&pageSize=100';
+      const r = await fetch(url);
+      if (!r.ok) throw new Error('RPC responded ' + r.status);
+      const d = await r.json();
+      const raw = d.ownedNfts || d.ownedNFTs || [];
+      const nfts = raw.map((n) => this.mapNft(n));
+      const ownedImgs = nfts.filter((x) => x.image);
+      this.setState({ nfts, nftLoading: false, ownedVerified: ownedImgs.length > 0, artIndex: 0 });
+    } catch (e) {
+      this.setState({ nftLoading: false, nftError: e.message || 'Network error' });
+    }
+  };
+
+  openBuy = (nft) => this.setState({ activePopup: 'buy', selectedNft: nft });
+  buyOnOpensea = () => window.open(this.OPENSEA, '_blank', 'noopener');
+
+  openStake = () => this.setState({ activePopup: 'stake' });
+  openRoadmap = () => this.setState({ activePopup: 'roadmap' });
+  openFaq = () => this.setState({ activePopup: 'faq' });
+  openDocs = () => this.setState({ activePopup: 'docs' });
+  goHome = () => this.setState({ activePopup: null });
+  closePopup = () => this.setState({ activePopup: null });
+  stop = (e) => { if (e && e.stopPropagation) e.stopPropagation(); };
+
+  viewCollection = () => window.open(this.OPENSEA, '_blank', 'noopener');
+  openTwitter = () => window.open('https://x.com/KHFRHN', '_blank', 'noopener');
+
+  // ---- ambient background music (WebAudio, procedural, soft loop) ----
+  initAudio() {
+    const Ctx = window.AudioContext || window.webkitAudioContext;
+    if (!Ctx) return;
+    const ctx = new Ctx();
+    this.audioCtx = ctx;
+    const master = ctx.createGain();
+    master.gain.value = 0.0001;
+    const lp = ctx.createBiquadFilter();
+    lp.type = 'lowpass'; lp.frequency.value = 900; lp.Q.value = 0.6;
+    master.connect(ctx.destination);
+    lp.connect(master);
+    this.masterGain = master;
+    const freqs = [130.81, 196.0, 261.63, 329.63];
+    freqs.forEach((f, i) => {
+      const o = ctx.createOscillator();
+      o.type = 'sine'; o.frequency.value = f; o.detune.value = (i - 1.5) * 4;
+      const g = ctx.createGain(); g.gain.value = 0.16;
+      o.connect(g); g.connect(lp); o.start();
+      const lfo = ctx.createOscillator(); lfo.type = 'sine'; lfo.frequency.value = 0.05 + i * 0.017;
+      const lg = ctx.createGain(); lg.gain.value = 0.06;
+      lfo.connect(lg); lg.connect(g.gain); lfo.start();
+    });
+    const len = 2 * ctx.sampleRate;
+    const buf = ctx.createBuffer(1, len, ctx.sampleRate);
+    const data = buf.getChannelData(0);
+    for (let i = 0; i < len; i++) data[i] = (Math.random() * 2 - 1) * 0.5;
+    const noise = ctx.createBufferSource(); noise.buffer = buf; noise.loop = true;
+    const nf = ctx.createBiquadFilter(); nf.type = 'bandpass'; nf.frequency.value = 620; nf.Q.value = 0.7;
+    const ng = ctx.createGain(); ng.gain.value = 0.05;
+    noise.connect(nf); nf.connect(ng); ng.connect(master); noise.start();
+  }
+
+  toggleMusic = () => {
+    if (!this.audioCtx) this.initAudio();
+    if (!this.audioCtx) return;
+    const on = !this.state.musicOn;
+    if (this.audioCtx.state === 'suspended') this.audioCtx.resume();
+    const now = this.audioCtx.currentTime;
+    this.masterGain.gain.cancelScheduledValues(now);
+    this.masterGain.gain.setValueAtTime(Math.max(this.masterGain.gain.value, 0.0001), now);
+    this.masterGain.gain.linearRampToValueAtTime(on ? 0.13 : 0.0001, now + 0.8);
+    this.setState({ musicOn: on });
+  };
+
+  _card(nft, i) {
+    const imgWell = React.createElement('div', {
+      style: { aspectRatio: '1', border: '2px solid', borderColor: '#808080 #ffffff #ffffff #808080', background: '#e6e6f0', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' },
+    }, nft.image ? React.createElement('img', { src: nft.image, alt: nft.name, loading: 'lazy', style: { width: '100%', height: '100%', objectFit: 'contain', imageRendering: 'pixelated' } }) : null);
+    return React.createElement('div', {
+      key: 'c' + i,
+      onClick: () => this.openBuy(nft),
+      onMouseEnter: (e) => { e.currentTarget.style.boxShadow = '0 0 0 2px #ff3d9a, 0 0 12px #ff3d9a, inset 1px 1px 0 #dfdfdf, inset -1px -1px 0 #000'; e.currentTarget.style.transform = 'translateY(-3px)'; },
+      onMouseLeave: (e) => { e.currentTarget.style.boxShadow = 'inset 1px 1px 0 #dfdfdf, inset -1px -1px 0 #000'; e.currentTarget.style.transform = 'none'; },
+      style: { cursor: 'pointer', background: '#c0c0c0', border: '2px solid', borderColor: '#ffffff #808080 #808080 #ffffff', boxShadow: 'inset 1px 1px 0 #dfdfdf, inset -1px -1px 0 #000', padding: '6px', transition: 'transform .12s, box-shadow .12s' },
+    },
+      imgWell,
+      React.createElement('div', { style: { fontSize: '19px', color: '#111', marginTop: '6px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' } }, nft.name),
+      React.createElement('div', { style: { fontFamily: "'Press Start 2P'", fontSize: '8px', color: '#d8177f', marginTop: '3px' } }, '#' + nft.id));
+  }
+
+  _placeholder(i) {
+    return React.createElement('div', { key: 'p' + i, style: { background: '#c0c0c0', border: '2px solid', borderColor: '#ffffff #808080 #808080 #ffffff', padding: '6px' } },
+      React.createElement('div', { style: { aspectRatio: '1', border: '2px solid', borderColor: '#808080 #ffffff #ffffff #808080', background: '#aab', animation: 'hlpulse 1.2s ease-in-out infinite' } }),
+      React.createElement('div', { style: { height: '15px', background: '#aab', marginTop: '8px', animation: 'hlpulse 1.2s ease-in-out infinite' } }));
+  }
+
+  renderVals() {
+    const w = this.state.wallet;
+    const short = w ? (w.slice(0, 6) + '…' + w.slice(-4)) : '';
+    const p = this.state.activePopup;
+    const messageMap = {
+      stake:   { title: 'Staking', icon: 'i', msg: 'Staking is currently unavailable.\n\nThis feature will be released in a future update.', width: '440px' },
+      roadmap: { title: 'Roadmap', icon: 'i', msg: 'Roadmap coming soon.\n\nStay tuned on Twitter for the latest updates.', width: '440px' },
+      faq:     { title: 'FAQ', icon: '?', msg: 'FAQ coming soon.\n\nQuestions? Reach out to the community on Twitter.', width: '440px' },
+      docs:    { title: 'Docs', icon: 'i', msg: 'Documentation coming soon.', width: '420px' },
+      nowallet:{ title: 'Connect Wallet', icon: '!', msg: 'No Web3 wallet detected.\n\nInstall a wallet (e.g. MetaMask) and connect it to continue.', width: '440px' },
+    };
+    const isMessage = !!messageMap[p];
+    const meta = messageMap[p] || {};
+    const isNfts = p === 'nfts';
+    const isBuy = p === 'buy';
+
+    // artwork window
+    const pool = this.artPool();
+    const cur = pool.length ? pool[this.state.artIndex % pool.length] : null;
+    const artworkImg = cur ? React.createElement('img', {
+      src: cur.image, alt: cur.name, loading: 'lazy',
+      style: { position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'contain', imageRendering: 'pixelated', opacity: this.state.artFade ? 1 : 0, transition: 'opacity 0.45s ease' },
+    }) : null;
+
+    // featured gallery
+    let featuredCards;
+    if (this.state.collection.length) {
+      featuredCards = this.state.collection.map((n, i) => this._card(n, i));
+    } else if (this.state.collectionLoading) {
+      featuredCards = Array.from({ length: 12 }, (_, i) => this._placeholder(i));
+    } else {
+      featuredCards = null;
+    }
+    const featuredGridEl = featuredCards
+      ? React.createElement('div', { id: 'hl-featured-grid', style: { display: 'grid', gridTemplateColumns: 'repeat(6,1fr)', gap: '12px' } }, featuredCards)
+      : React.createElement('div', { style: { padding: '30px', textAlign: 'center', fontFamily: "'Press Start 2P'", fontSize: '11px', color: '#555', lineHeight: '1.8' } }, 'Collection unavailable right now.');
+
+    // buy popup
+    const bn = this.state.selectedNft;
+    const buyThumb = bn && bn.image ? React.createElement('img', { src: bn.image, alt: bn.name, style: { width: '100%', height: '100%', objectFit: 'contain', imageRendering: 'pixelated' } }) : null;
+
+    // MY NFTS grid
+    const nftGridEl = React.createElement('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(150px,1fr))', gap: '14px' } },
+      this.state.nfts.map((n, i) => this._card(n, i)));
+
+    return {
+      artworkImg,
+      featuredGridEl,
+      nftGridEl,
+      buyThumb,
+      buyName: bn ? bn.name : '',
+      buyId: bn ? bn.id : '',
+      isBuy,
+      // wallet
+      connected: !!w,
+      notConnected: !w,
+      walletShort: short,
+      statusText: 'CONNECTED',
+      // taskbar
+      clock: this.state.clock,
+      musicOn: this.state.musicOn,
+      musicOff: !this.state.musicOn,
+      // handlers
+      connectWallet: this.connectWallet,
+      loadNFTs: this.loadNFTs,
+      buyOnOpensea: this.buyOnOpensea,
+      openStake: this.openStake,
+      openRoadmap: this.openRoadmap,
+      openFaq: this.openFaq,
+      openDocs: this.openDocs,
+      goHome: this.goHome,
+      closePopup: this.closePopup,
+      stop: this.stop,
+      viewCollection: this.viewCollection,
+      openTwitter: this.openTwitter,
+      toggleMusic: this.toggleMusic,
+      // popup
+      anyPopup: !!p,
+      popupTitle: isBuy ? 'Purchase this NFT' : (meta.title || (isNfts ? 'My Hoodlust NFTs' : '')),
+      popupWidth: isBuy ? '460px' : (meta.width || '720px'),
+      popupIcon: meta.icon || 'i',
+      popupMessage: meta.msg || '',
+      isMessagePopup: isMessage,
+      isNfts: isNfts,
+      // nft states
+      nfts: this.state.nfts,
+      nftLoading: this.state.nftLoading,
+      nftError: !!this.state.nftError,
+      nftErrorMsg: this.state.nftError || '',
+      nftEmpty: isNfts && !this.state.nftLoading && !this.state.nftError && this.state.nfts.length === 0,
+      nftHas: isNfts && !this.state.nftLoading && !this.state.nftError && this.state.nfts.length > 0,
+    };
+  }
+}
+</script>
+</body>
+</html>
